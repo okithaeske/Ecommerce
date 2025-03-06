@@ -22,7 +22,7 @@
 
         <div>
             <video class="w-[640px] h-[360px] rounded-lg shadow-lg border-2 " autoplay loop muted>
-                <source src="../assets/video/Cinematic Watch Product Video Commercial Example _ Rolex Timex Omega Samsung Apple Jewelry Amazon Ad.mp4" type="video/mp4">
+                <source src="../assets/video/herovid.mp4" type="video/mp4">
                 Your browser does not support the video tag.
 
             </video>
