@@ -19,6 +19,6 @@
     
 
     <!-- footer -->
-    <?php include '../includes/footer.php'; ?>
+    <?php include '../components/footer.php'; ?>
 </body>
 </html>

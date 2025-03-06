@@ -7,7 +7,7 @@
 </head>
 <body>
     <!-- navbar -->
-    <?php include '../includes/header.php'; ?>
+    <?php include '../components/header.php'; ?>
 
 
 
@@ -22,6 +22,6 @@
     
 
     <!-- footer -->
-    <?php include '../includes/footer.php'; ?>
+    <?php include '../components/footer.php'; ?>
 </body>
 </html>
