@@ -10,47 +10,72 @@
 </head>
 
 <body>
+    
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 p-4 shadow-lg shadow-gray-500/50">
-        <div class="container mx-auto flex items-center justify-between sticky top-0">
-            <!-- Logo -->
-            <a href="../api/index.php" class="text-white text-2xl font-semibold">ZENTARA</a>
+    <nav id="navbar" class="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 p-8 fixed top-0 left-0 right-0 z-50 transition-transform transform">
+        <div class="container mx-auto flex items-center justify-center relative ">
+            <!-- Logo in Center -->
+            <a href="../api/index.php" class="text-white text-3xl font-bold absolute left-1/2 transform -translate-x-1/2">
+                ZENTARA
+            </a>
 
-            <!-- Navbar Links for Desktop -->
-            <div class="hidden md:flex space-x-6">
-                <a href="../api/index.php" class="text-white hover:text-gray-400">Home</a>
-                <a href="../api/about.php" class="text-white hover:text-gray-400">About</a>
-                <a href="../api/product.php" class="text-white hover:text-gray-400">Our Products</a>
-                <a href="../api/contact.php" class="text-white hover:text-gray-400">Contact</a>
-            </div>
+            <!-- Hamburger Menu on Right -->
+            <button id="hamburger-icon" class="text-white text-2xl absolute right-0">
+                <i class="fas fa-bars"></i>
+            </button>
 
-            <!-- Hamburger Icon for Mobile -->
-            <div class="md:hidden">
-                <button class="text-white" id="hamburger-icon">
-                    <i class="fas fa-bars h-6 w-6"></i>
-                </button>
-
-            </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by Default) -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <a href="../api/index.php" class="text-white hover:text-gray-400">Home</a>
-            <a href="../api/about.php" class="text-white hover:text-gray-400">About</a>
-            <a href="../api/product.php" class="text-white hover:text-gray-400">Our Products</a>
-            <a href="../api/contact.php" class="text-white hover:text-gray-400">Contact</a>
+        <!-- Mobile Menu (Hidden & Unique Animation) -->
+        <div id="mobile-menu" class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-50">
+            <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
+            <div class="flex flex-col items-center mt-16 space-y-6">
+                <a href="../api/index.php" class="hover:text-gray-400 text-xl">Home</a>
+                <a href="../api/about.php" class="hover:text-gray-400 text-xl">About</a>
+                <a href="../api/product.php" class="hover:text-gray-400 text-xl">Our Products</a>
+                <a href="../api/contact.php" class="hover:text-gray-400 text-xl">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Script to Toggle Mobile Menu -->
+    <!-- Script for Slide-in Animation -->
     <script>
         const hamburgerIcon = document.getElementById("hamburger-icon");
         const mobileMenu = document.getElementById("mobile-menu");
+        const closeMenu = document.getElementById("close-menu");
 
         hamburgerIcon.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
+            mobileMenu.classList.remove("translate-x-full");
+            document.body.classList.add("overflow-hidden"); // Disable scrolling
+        });
+
+        closeMenu.addEventListener("click", () => {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden"); // Enable scrolling
         });
     </script>
+
+
+
+    <script>
+        let lastScrollTop = 0; // Keep track of last scroll position
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop) {
+                // Scroll Down - Hide Navbar
+                navbar.style.transform = "translateY(-100%)";
+            } else {
+                // Scroll Up - Show Navbar
+                navbar.style.transform = "translateY(0)";
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative scroll
+        });
+    </script>
+
+
 </body>
 
 </html>
