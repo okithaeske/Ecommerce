@@ -15,7 +15,6 @@
     <!-- navbar -->
     <?php include '../components/header.php'; ?>
 
-    <!-- hero content -->
     <!-- Hero Section -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted>
@@ -27,16 +26,27 @@
         </div>
     </div>
 
-    <!-- Scrollable Sections -->
-    <div class="relative h-screen flex items-center justify-center bg-gray-100 snap-start">
-        <h1 class="text-6xl font-bold text-black">Elegance Redefined</h1>
+    <!-- section 1 -->
+    <div class="relative w-full h-screen overflow-hidden">
+        <video class="absolute w-full h-full object-cover" autoplay loop muted>
+            <source src="../assets/video/section1.mp4" type="video/mp4">
+        </video>
+        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-60">
+            <h1 class="text-6xl font-bold text-black">Elegance Redefined</h1>
+        </div>
     </div>
 
-    <div class="relative h-screen flex items-center justify-center bg-gray-200 snap-start">
-        <h1 class="text-6xl font-bold text-black">Timeless Craftsmanship</h1>
-    </div>
 
+    <!-- section 2 -->
+    <video class="absolute w-full h-full object-cover" autoplay loop muted>
+        <source src="../assets/video/section2.mp4" type="video/mp4">
+    </video>
     
+    <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
+        <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+    </div>
+
+
 
 
 

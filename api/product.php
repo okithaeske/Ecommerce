@@ -7,7 +7,7 @@
 </head>
 <body>
     <!-- navbar -->
-    <?php include '../includes/header.php'; ?>
+    <?php include '../components/header.php'; ?>
 
 
 
