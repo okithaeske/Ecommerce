@@ -21,45 +21,44 @@
             <source src="../assets/video/herovid.mp4" type="video/mp4">
         </video>
         <!-- Dark Overlay & Text -->
-        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white">
-            <h1 class="text-5xl md:text-7xl font-bold text-center">Own The Seconds</h1>
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white px-4">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-center leading-tight">Own The Seconds</h1>
         </div>
     </div>
 
-    <!-- section 1 -->
+    <!-- Section 1 -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute w-full h-full object-cover" autoplay loop muted>
             <source src="../assets/video/section1.mp4" type="video/mp4">
         </video>
-        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-60">
-            <h1 class="text-6xl font-bold text-black">Elegance Redefined</h1>
+        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-60 px-4">
+            <h1 class="text-3xl sm:text-5xl font-bold text-black text-center">Elegance Redefined</h1>
         </div>
     </div>
 
-
-    <!-- section 2 -->
+    <!-- Section 2 -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute w-full h-full object-cover" autoplay loop muted>
             <source src="../assets/video/section2.mp4" type="video/mp4">
         </video>
-
-        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
-            <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5 px-4">
+            <h1 class="text-3xl sm:text-5xl font-bold text-white text-center">Timeless Craftsmanship</h1>
         </div>
     </div>
 
-    <!-- section 3 -->
     <!-- Art & Creativity Section -->
-    <div class="flex flex-col md:flex-row items-center justify-center w-full h-screen px-10 bg-gray-900 text-white">
+    <div
+        class="flex flex-col md:flex-row items-center justify-center w-full h-auto md:h-screen px-4 md:px-10 py-10 bg-gray-900 text-white">
         <!-- Left Side - Image -->
-        <div class="w-full md:w-1/2 flex justify-center">  
-            <img src="../assets/images/section3.jpeg" alt="Time meets Art" class="w-4/5 shadow-lg h-screen object-cover pr-10
+        <div class="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
+            <img src="../assets/images/section3.jpeg" alt="Time meets Art"
+                class="w-screen md:w-auto shadow-lg h-auto md:h-screen object-cover">
         </div>
 
-        <!-- Right Side - Text -->  
-        <div class="w-full md:w-1/2 text-left p-6 md:p-12">
-            <h1 class="text-4xl font-bold mb-4">Zentara: Where Time Meets Art</h1>
-            <p class="text-gray-300">
+        <!-- Right Side - Text -->
+        <div class="w-full md:w-1/2 text-left p-4 md:p-12">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4">Zentara: Where Time Meets Art</h1>
+            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
                 At Zentara, we don’t just tell time—we tell stories. Our watches are more than just tools for keeping
                 track of moments;
                 they are an embodiment of artistic vision, innovation, and style. Every piece is a canvas, each design a
@@ -72,27 +71,8 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Scroll indicator -->
-    <div class="fixed right-5 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2 z-50">
+    <div class="fixed right-5 top-1/2 transform -translate-y-1/2 flex-col space-y-2 z-50 hidden md:flex">
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="1"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="2"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="3"></div>
@@ -100,10 +80,9 @@
     </div>
 
     <!-- Script for Scroll Indicator -->
-
     <script>
         const dots = document.querySelectorAll(".dot");
-        const sections = document.querySelectorAll("h1"); // Assuming each section has a video
+        const sections = document.querySelectorAll("h1");
 
         function updateIndicator() {
             let current = "";
@@ -127,10 +106,10 @@
     </script>
 
 
-
-
-    <!-- footer -->
+    <!-- Footer -->
     <?php include '../components/footer.php'; ?>
+
 </body>
+
 
 </html>
