@@ -38,18 +38,77 @@
 
 
     <!-- section 2 -->
-    <video class="absolute w-full h-full object-cover" autoplay loop muted>
-        <source src="../assets/video/section2.mp4" type="video/mp4">
-    </video>
-    
-    <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
-        <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+    <div class="relative w-full h-screen overflow-hidden">
+        <video class="absolute w-full h-full object-cover" autoplay loop muted>
+            <source src="../assets/video/section2.mp4" type="video/mp4">
+        </video>
+
+        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
+            <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+        </div>
+    </div>
+
+    <!-- section 3 -->
+    <div class="relative w-full h-screen overflow-hidden">
+        <video class="absolute w-full h-full object-cover" autoplay loop muted>
+            <source src="../assets/video/section2.mp4" type="video/mp4">
+        </video>
+
+        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
+            <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+        </div>
     </div>
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Scroll indicator -->
+    <div class="fixed right-5 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2 z-50">
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="1"></div>
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="2"></div>
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="3"></div>
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="4"></div>
+    </div>
+
+    <!-- Script for Scroll Indicator -->
+
+    <script>
+        const dots = document.querySelectorAll(".dot");
+        const sections = document.querySelectorAll("video"); // Assuming each section has a video
+
+        function updateIndicator() {
+            let current = "";
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < window.innerHeight / 2) {
+                    current = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                if (index === current) {
+                    dot.classList.add("bg-red-500");
+                } else {
+                    dot.classList.remove("bg-red-500");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", updateIndicator);
+    </script>
 
 
 
