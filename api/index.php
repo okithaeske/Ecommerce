@@ -49,15 +49,31 @@
     </div>
 
     <!-- section 3 -->
-    <div class="relative w-full h-screen overflow-hidden">
-        <video class="absolute w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/section2.mp4" type="video/mp4">
-        </video>
+    <!-- Art & Creativity Section -->
+    <div class="flex flex-col md:flex-row items-center justify-center w-full h-screen px-10 bg-gray-900 text-white">
+        <!-- Left Side - Image -->
+        <div class="w-full md:w-1/2 flex justify-center">  
+            <img src="../assets/images/section3.jpeg" alt="Time meets Art" class="w-4/5 shadow-lg h-screen object-cover pr-10
+        </div>
 
-        <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5">
-            <h1 class="text-6xl font-bold text-white ">Timeless Craftsmanship</h1>
+        <!-- Right Side - Text -->  
+        <div class="w-full md:w-1/2 text-left p-6 md:p-12">
+            <h1 class="text-4xl font-bold mb-4">Zentara: Where Time Meets Art</h1>
+            <p class="text-gray-300">
+                At Zentara, we don’t just tell time—we tell stories. Our watches are more than just tools for keeping
+                track of moments;
+                they are an embodiment of artistic vision, innovation, and style. Every piece is a canvas, each design a
+                brushstroke of culture,
+                passion, and creativity. We work hand in hand with artists, blending their masterpieces with precision
+                engineering,
+                so you can wear art that moves with you. Zentara isn’t just a brand;
+                it’s an artistic revolution on your wrist. Join us, and let every second be a work of art.
+            </p>
         </div>
     </div>
+
+
+
 
 
 
@@ -87,7 +103,7 @@
 
     <script>
         const dots = document.querySelectorAll(".dot");
-        const sections = document.querySelectorAll("video"); // Assuming each section has a video
+        const sections = document.querySelectorAll("h1"); // Assuming each section has a video
 
         function updateIndicator() {
             let current = "";
