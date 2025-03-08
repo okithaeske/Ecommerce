@@ -10,6 +10,7 @@
 <body>
     <!-- navbar -->
     <?php include '../components/header.php'; ?>
+  
 
 
 

@@ -14,6 +14,7 @@
 <body>
     <!-- navbar -->
     <?php include '../components/header.php'; ?>
+   
 
     <!-- Hero Section -->
     <div class="relative w-full h-screen overflow-hidden">
