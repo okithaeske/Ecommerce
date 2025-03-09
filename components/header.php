@@ -16,10 +16,12 @@
 <body>
 
     <!-- Navbar -->
-    <nav id="navbar" class="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 p-8 fixed top-0 left-0 right-0 z-50 transition-transform transform">
+    <nav id="navbar"
+        class="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 p-8 fixed top-0 left-0 right-0 z-50 transition-transform transform">
         <div class="container mx-auto flex items-center justify-center relative ">
             <!-- Logo in Center -->
-            <a href="../api/index.php" class="text-white text-3xl font-bold absolute left-1/2 transform -translate-x-1/2">
+            <a href="../api/index.php"
+                class="text-white text-3xl font-bold absolute left-1/2 transform -translate-x-1/2">
                 ZENTARA
             </a>
 
@@ -31,7 +33,8 @@
         </div>
 
         <!-- Mobile Menu (Hidden & Unique Animation) -->
-        <div id="mobile-menu" class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-100">
+        <div id="mobile-menu"
+            class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-100">
             <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
             <div class="flex flex-col items-center mt-16 space-y-6 h-screen bg-gray-900 bg-opacity-60 p-8">
                 <a href="../api/index.php" class="hover:text-gray-400 text-xl ">Home</a>
@@ -56,7 +59,7 @@
         closeMenu.addEventListener("click", () => {
             mobileMenu.classList.add("translate-x-full");
             document.body.classList.remove("overflow-hidden"); // Enable scrolling
-            
+
         });
     </script>
 
@@ -66,7 +69,7 @@
         let lastScrollTop = 0; // Keep track of last scroll position
         const navbar = document.getElementById("navbar");
 
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
             if (currentScroll > lastScrollTop) {
@@ -79,6 +82,7 @@
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative scroll
         });
     </script>
+
 
 
 </body>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- css -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../assets/tailwind.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -14,12 +15,12 @@
 <body>
     <!-- navbar -->
     <?php include '../components/header.php'; ?>
-   
+
 
     <!-- Hero Section -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/herovid.mp4" type="video/mp4">
+            <source src="../assets/video/heroindex.mp4" type="video/mp4">
         </video>
         <!-- Dark Overlay & Text -->
         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white px-4">
@@ -77,11 +78,12 @@
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="1"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="2"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="3"></div>
-        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section=""></div>
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="4"></div>
     </div>
 
+
     <!-- Script for Scroll Indicator -->
-   <?php include '../components/scrollscript.php'; ?>
+    <?php include '../components/scrollscript.php'; ?>
 
     <!-- Footer -->
     <?php include '../components/footer.php'; ?>
