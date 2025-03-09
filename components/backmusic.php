@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background_Music</title>
+    <!-- css -->
+    <script src="../assets/tailwind.css"></script>
+    <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
     <!-- Mute/Unmute Button -->
-    <button id="muteButton" class="fixed top-3 left-5 bg-gold text-black p-3 rounded-lg z-50">
+    <button id="muteButton" class="fixed bottom-3 left-5 bg-gold text-black p-3 rounded-lg z-50">
         <i id="muteIcon" class="fa-solid fa-volume-high"></i>
     </button>
 
