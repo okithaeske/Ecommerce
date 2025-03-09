@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- css -->
     <script src="../assets/tailwind.css"></script>
     <!-- Font Awesome CDN link -->
