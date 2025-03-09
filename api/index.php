@@ -77,35 +77,11 @@
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="1"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="2"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="3"></div>
-        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="4"></div>
+        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section=""></div>
     </div>
 
     <!-- Script for Scroll Indicator -->
-    <script>
-        const dots = document.querySelectorAll(".dot");
-        const sections = document.querySelectorAll("h1");
-
-        function updateIndicator() {
-            let current = "";
-            sections.forEach((section, index) => {
-                const sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop < window.innerHeight / 2) {
-                    current = index;
-                }
-            });
-
-            dots.forEach((dot, index) => {
-                if (index === current) {
-                    dot.classList.add("bg-red-500");
-                } else {
-                    dot.classList.remove("bg-red-500");
-                }
-            });
-        }
-
-        window.addEventListener("scroll", updateIndicator);
-    </script>
-
+   <?php include '../components/scrollscript.php'; ?>
 
     <!-- Footer -->
     <?php include '../components/footer.php'; ?>
