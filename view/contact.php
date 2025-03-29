@@ -8,6 +8,8 @@
     <!-- css -->
     <script src="../assets/tailwind.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+       <!-- Font Awesome CDN link -->
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-black text-white font-sans">
