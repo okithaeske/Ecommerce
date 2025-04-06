@@ -24,8 +24,9 @@
                 <p class="text-gray-300 mt-1">Enter product details to add to the database</p>
             </div>
 
-            <form action="" method="POST" enctype="multipart/form-data"
-                class="p-6 space-y-6">
+            <form action="http://localhost/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+            <!-- <form action="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']; ?>/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6"> -->
+
                 <!-- Product Name -->
                 <div>
                     <label for="product_name" class="block text-gray-700 font-medium mb-2">Product Name</label>
@@ -71,8 +72,7 @@
                             class="cursor-pointer bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
                             Browse Files
                         </label>
-                        <input type="file" id="product_image" name="image" accept="image/*" required
-                            class="hidden">
+                        <input type="file" id="product_image" name="image" accept="image/*" required class="hidden">
                         <p class="text-gray-400 mt-2 text-sm">Maximum file size: 5MB</p>
                         <div id="image-preview" class="mt-4 hidden">
                             <p class="text-sm text-gray-500">Selected image:</p>

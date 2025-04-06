@@ -19,6 +19,13 @@
     <nav id="navbar"
         class="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 p-8 fixed top-0 left-0 right-0 z-50 transition-transform transform">
         <div class="container mx-auto flex items-center justify-center relative ">
+
+            <!-- Profile Icon on Left -->
+            <a href="../view/login.php" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+                <i class="fas fa-user-circle"></i>
+            </a>
+
+
             <!-- Logo in Center -->
             <a href="../view/index.php"
                 class="text-white text-3xl font-bold absolute left-1/2 transform -translate-x-1/2">
@@ -52,7 +59,10 @@
                         <a href="../view/product.php?category=lux" class="hover:text-gray-400 text-lg">Lux</a>
                         <a href="../view/product.php?category=modern" class="hover:text-gray-400 text-lg">Modern</a>
                         <a href="../admin/add.php?category=add" class="hover:text-gray-400 text-lg">Add Items</a>
-                        <a href="../admin/delete.php?category=delete" class="hover:text-gray-400 text-lg">Delete Items</a>
+                        <a href="../admin/update.php?category=update" class="hover:text-gray-400 text-lg">Update
+                            Items</a>
+                        <a href="../admin/delete.php?category=delete" class="hover:text-gray-400 text-lg">Delete
+                            Items</a>
                     </div>
                 </div>
                 <a href="../view/contact.php" class="hover:text-gray-400 text-xl">Contact</a>

@@ -31,7 +31,7 @@
                     <input type="text" id="product_name" name="id" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600">
                 </div>
-             
+
 
                 <!-- Submit Button -->
                 <div class="flex justify-end pt-4">
