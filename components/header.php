@@ -29,7 +29,7 @@
 
 
             <!-- Logo in Center -->
-            <a href="index.php?page=index" class="text-white text-3xl font-bold absolute bg-center">
+            <a href="home" class="text-white text-3xl font-bold absolute bg-center">
                 ZENTARA
             </a>
 
@@ -45,8 +45,8 @@
             class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-100">
             <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
             <div class="flex flex-col items-center mt-16 space-y-6 h-screen bg-gray-900 bg-opacity-60 p-8">
-                <a href="index.php?page=index" class="hover:text-gray-400 text-xl ">Home</a>
-                <a href="index.php?page=about" class="hover:text-gray-400 text-xl">About</a>
+                <a href="home" class="hover:text-gray-400 text-xl ">Home</a>
+                <a href="about" class="hover:text-gray-400 text-xl">About</a>
                 <!-- Products with dropdown -->
                 <div class="relative w-full flex flex-col items-center">
                     <button id="products-dropdown"
@@ -56,19 +56,19 @@
                             class="fas fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
                     </button>
                     <div id="product-categories" class="flex flex-col items-center mt-2 space-y-3 w-full hidden">
-                        <a href="index.php?page=product&category=old" class="hover:text-gray-400 text-lg">Old</a>
-                        <a href="index.php?page=product&category=lux" class="hover:text-gray-400 text-lg">Lux</a>
-                        <a href="index.php?page=product&category=modern" class="hover:text-gray-400 text-lg">Modern</a>
+                        <a href="old" class="hover:text-gray-400 text-lg">Old</a>
+                        <a href="product/lux" class="hover:text-gray-400 text-lg">Lux</a>
+                        <a href="product/modern" class="hover:text-gray-400 text-lg">Modern</a>
 
-                        <a href="index.php?page=add&category=add" class="hover:text-gray-400 text-lg">Add Items</a>
-                        <a href="index.php?page=update&category=update" class="hover:text-gray-400 text-lg">Update
+                        <a href="add" class="hover:text-gray-400 text-lg">Add Items</a>
+                        <a href="update" class="hover:text-gray-400 text-lg">Update
                             Items</a>
-                        <a href="index.php?page=delete&category=delete" class="hover:text-gray-400 text-lg">Delete
+                        <a href="delete" class="hover:text-gray-400 text-lg">Delete
                             Items</a>
 
                     </div>
                 </div>
-                <a href="index.php?page=contact" class="hover:text-gray-400 text-xl">Contact</a>
+                <a href="contact" class="hover:text-gray-400 text-xl">Contact</a>
             </div>
         </div>
     </nav>
