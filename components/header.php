@@ -10,6 +10,7 @@
     <script src="../assets/tailwind.css"></script>
     <!-- Font Awesome CDN link -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
 </head>
 
@@ -23,12 +24,12 @@
             <!-- Profile Icon on Left -->
             <a href="../view/login.php" class="text-white text-2xl absolute left-0 hover:text-gray-400">
                 <i class="fas fa-user-circle"></i>
+                <span class="text-sm">Login</span>
             </a>
 
 
             <!-- Logo in Center -->
-            <a href="../view/index.php"
-                class="text-white text-3xl font-bold absolute left-1/2 transform -translate-x-1/2">
+            <a href="../view/index.php" class="text-white text-3xl font-bold absolute bg-center">
                 ZENTARA
             </a>
 

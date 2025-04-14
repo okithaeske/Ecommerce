@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome CDN link -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
@@ -17,9 +18,10 @@
         <div class="container mx-auto text-center">
             <div class="flex justify-center space-x-6 mb-4">
                 <!-- Footer Links -->
-                <a href="../api/index.php" class="text-white hover:text-gray-400">Home</a>
-                <a href="../api/about.php" class="text-white hover:text-gray-400">About</a>
-                <a href="../api/product.php" class="text-white hover:text-gray-400">Our Products</a>
+                <a href="../view/index.php" class="text-white hover:text-gray-400">Home</a>
+                <a href="../view/about.php" class="text-white hover:text-gray-400">About</a>
+                <a href="../view/product.php" class="text-white hover:text-gray-400">Our Products</a>
+                <a href="../view/contact.php" class="text-white hover:text-gray-400">Contact</a>
             </div>
 
             <!-- Social Media Links -->
