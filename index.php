@@ -11,13 +11,13 @@ switch ($page) {
         include 'view/product.php';
         break;
     case 'add':
-        include 'admin/add.php';
+        include 'seller/add.php';
         break;
     case 'update':
-        include 'admin/update.php';
+        include 'seller/update.php';
         break;
     case 'delete':
-        include 'admin/delete.php';
+        include 'seller/delete.php';
         break;
     case 'contact':
         include 'view/contact.php';
