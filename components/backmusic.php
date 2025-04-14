@@ -42,7 +42,7 @@
 
 
     <audio id="bgMusic" autoplay>
-        <source src="../assets/mp3/bgmusic.mp3" type="audio/mp3">
+        <source src="assets/mp3/bgmusic.mp3" type="audio/mp3">
     </audio>
 
     <script>

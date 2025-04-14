@@ -22,14 +22,14 @@
         <div class="container mx-auto flex items-center justify-center relative ">
 
             <!-- Profile Icon on Left -->
-            <a href="../view/login.php" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+            <a href="view/login.php" class="text-white text-2xl absolute left-0 hover:text-gray-400">
                 <i class="fas fa-user-circle"></i>
                 <span class="text-sm">Login</span>
             </a>
 
 
             <!-- Logo in Center -->
-            <a href="../view/index.php" class="text-white text-3xl font-bold absolute bg-center">
+            <a href="index.php?page=index" class="text-white text-3xl font-bold absolute bg-center">
                 ZENTARA
             </a>
 
@@ -45,8 +45,8 @@
             class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-100">
             <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
             <div class="flex flex-col items-center mt-16 space-y-6 h-screen bg-gray-900 bg-opacity-60 p-8">
-                <a href="../view/index.php" class="hover:text-gray-400 text-xl ">Home</a>
-                <a href="../view/about.php" class="hover:text-gray-400 text-xl">About</a>
+                <a href="index.php?page=index" class="hover:text-gray-400 text-xl ">Home</a>
+                <a href="index.php?page=about" class="hover:text-gray-400 text-xl">About</a>
                 <!-- Products with dropdown -->
                 <div class="relative w-full flex flex-col items-center">
                     <button id="products-dropdown"
@@ -56,17 +56,19 @@
                             class="fas fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
                     </button>
                     <div id="product-categories" class="flex flex-col items-center mt-2 space-y-3 w-full hidden">
-                        <a href="../view/product.php?category=old" class="hover:text-gray-400 text-lg">Old</a>
-                        <a href="../view/product.php?category=lux" class="hover:text-gray-400 text-lg">Lux</a>
-                        <a href="../view/product.php?category=modern" class="hover:text-gray-400 text-lg">Modern</a>
-                        <a href="../admin/add.php?category=add" class="hover:text-gray-400 text-lg">Add Items</a>
-                        <a href="../admin/update.php?category=update" class="hover:text-gray-400 text-lg">Update
+                        <a href="index.php?page=product&category=old" class="hover:text-gray-400 text-lg">Old</a>
+                        <a href="index.php?page=product&category=lux" class="hover:text-gray-400 text-lg">Lux</a>
+                        <a href="index.php?page=product&category=modern" class="hover:text-gray-400 text-lg">Modern</a>
+
+                        <a href="index.php?page=add&category=add" class="hover:text-gray-400 text-lg">Add Items</a>
+                        <a href="index.php?page=update&category=update" class="hover:text-gray-400 text-lg">Update
                             Items</a>
-                        <a href="../admin/delete.php?category=delete" class="hover:text-gray-400 text-lg">Delete
+                        <a href="index.php?page=delete&category=delete" class="hover:text-gray-400 text-lg">Delete
                             Items</a>
+
                     </div>
                 </div>
-                <a href="../view/contact.php" class="hover:text-gray-400 text-xl">Contact</a>
+                <a href="index.php?page=contact" class="hover:text-gray-400 text-xl">Contact</a>
             </div>
         </div>
     </nav>

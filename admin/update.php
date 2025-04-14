@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <?php include '../components/header.php'; ?>
+    <!-- <?php include '../components/header.php'; ?> -->
 
     <div class="container mx-auto pt-32 pb-16 px-4">
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">

@@ -16,13 +16,13 @@
 
 <body>
     <!-- navbar -->
-    <?php include '../components/header.php'; ?>
+    <!-- <?php include '/components/header.php'; ?> -->
 
 
     <!-- Hero Section -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/heroindex.mp4" type="video/mp4">
+            <source src="assets/video/heroindex.mp4" type="video/mp4">
         </video>
         <!-- Dark Overlay & Text -->
         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white px-4">
@@ -33,7 +33,7 @@
     <!-- Section 1 -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/section1.mp4" type="video/mp4">
+            <source src="assets/video/section1.mp4" type="video/mp4">
         </video>
         <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-60 px-4">
             <h1 class="text-3xl sm:text-5xl font-bold text-black text-center">Elegance Redefined</h1>
@@ -43,7 +43,7 @@
     <!-- Section 2 -->
     <div class="relative w-full h-screen overflow-hidden">
         <video class="absolute w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/section2.mp4" type="video/mp4">
+            <source src="assets/video/section2.mp4" type="video/mp4">
         </video>
         <div class="relative h-screen flex items-center justify-center bg-gray-100 bg-opacity-5 px-4">
             <h1 class="text-3xl sm:text-5xl font-bold text-white text-center">Timeless Craftsmanship</h1>
@@ -55,7 +55,7 @@
         class="flex flex-col md:flex-row items-center justify-center w-full h-auto md:h-screen px-4 md:px-10 py-10 bg-gray-900 text-white">
         <!-- Left Side - Image -->
         <div class="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
-            <img src="../assets/images/section3.jpeg" alt="Time meets Art"
+            <img src="assets/images/section3.jpeg" alt="Time meets Art"
                 class="w-screen md:w-auto shadow-lg h-auto md:h-screen object-cover">
         </div>
 
@@ -84,11 +84,11 @@
     </div>
 
 
-    <!-- Script for Scroll Indicator -->
-    <?php include '../components/scrollscript.php'; ?>
+    <!-- Script for Scroll Indicator --
+    <?php include 'components/scrollscript.php'; ?>
 
     <!-- Footer -->
-    <?php include '../components/footer.php'; ?>
+    <?php include 'components/footer.php'; ?> 
 
 </body>
 

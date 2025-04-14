@@ -15,15 +15,15 @@
 
 <body class="bg-black text-white font-sans">
     <!-- navbar -->
-    <?php include '../components/header.php'; ?>
+    <!-- <?php include '../components/header.php'; ?> -->
 
     <!-- Background music -->
-    <?php include '../components/backmusic.php'; ?>
+    <?php include 'components/backmusic.php'; ?>
 
     <!-- Hero Section -->
     <div class="relative w-full h-screen flex items-center justify-center">
         <video class="absolute top-0 left-0 w-screen h-screen object-cover" autoplay loop muted>
-            <source src="../assets/video/contacthero.mp4" type="video/mp4">
+            <source src="assets/video/contacthero.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 class="relative text-5xl md:text-7xl font-bold text-center">Get in Touch with Elegance</h1>

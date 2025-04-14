@@ -15,12 +15,12 @@
 
 <body>
     <!-- navbar -->
-    <?php include '../components/header.php'; ?>
+    <!-- <?php include '../components/header.php'; ?> -->
 
     <!-- Brand Legacy Section -->
     <div class="parallax h-screen flex items-center justify-center text-center px-6">
         <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted>
-            <source src="../assets/video/herovidABT.mp4" type="video/mp4">
+            <source src="assets/video/herovidABT.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white px-4">
             <h1 class="text-5xl md:text-7xl font-bold">A Legacy of Timeless Elegance</h1>
@@ -40,7 +40,7 @@
                     transcend generations.</p>
             </div>
             <div class="md:w-1/2 flex justify-center fade-in">
-                <img src="../assets/images/craftmanship.jpeg" alt="Time meets Art"
+                <img src="assets/images/craftmanship.jpeg" alt="Time meets Art"
                     class="w-screen md:w-auto shadow-lg h-auto md:h-screen object-cover">
             </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="4"></div>
     </div>
 
-    <?php include '../components/scrollscript.php'; ?>
+    <?php include 'components/scrollscript.php'; ?>
 
     <!-- Script for Fade-in Animations -->
     <script>
@@ -100,7 +100,7 @@
 
 
     <!-- footer -->
-    <?php include '../components/footer.php'; ?>
+    <?php include 'components/footer.php'; ?>
 </body>
 
 </html>

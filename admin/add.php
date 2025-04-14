@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <?php include '../components/header.php'; ?>
+    <!-- <?php include '../components/header.php'; ?> -->
 
     <!-- Admin Product Form -->
     <div class="container mx-auto pt-32 pb-16 px-4">
