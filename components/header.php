@@ -11,6 +11,7 @@
     <!-- Font Awesome CDN link -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 </head>
 
@@ -22,7 +23,7 @@
         <div class="container mx-auto flex items-center justify-center relative ">
 
             <!-- Profile Icon on Left -->
-            <a href="view/login.php" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+            <a href="login" class="text-white text-2xl absolute left-0 hover:text-gray-400">
                 <i class="fas fa-user-circle"></i>
                 <span class="text-sm">Login</span>
             </a>
@@ -40,37 +41,39 @@
 
         </div>
 
-        <!-- Mobile Menu -->
         <div id="mobile-menu"
             class="fixed right-0 top-0 h-full w-64 bg-gray-900 text-white transform translate-x-full transition-transform duration-500 z-100">
+
             <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
+
             <div class="flex flex-col items-center mt-16 space-y-6 h-screen bg-gray-900 bg-opacity-60 p-8">
-                <a href="home" class="hover:text-gray-400 text-xl ">Home</a>
-                <a href="about" class="hover:text-gray-400 text-xl">About</a>
+
+                <a href="home" class="hover:text-gray-400 text-xl text-center w-full">Home</a>
+                <a href="about" class="hover:text-gray-400 text-xl text-center w-full">About</a>
+                <a href="products" class="hover:text-gray-400 text-xl text-center w-full">Products</a>
+
                 <!-- Products with dropdown -->
                 <div class="relative w-full flex flex-col items-center">
                     <button id="products-dropdown"
-                        class="hover:text-gray-400 text-xl flex items-center justify-center w-full">
-                        Our Products
+                        class="hover:text-gray-400 text-xl flex items-center justify-center w-full text-center">
+                        Products
                         <i id="dropdown-icon"
                             class="fas fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
                     </button>
+
                     <div id="product-categories" class="flex flex-col items-center mt-2 space-y-3 w-full hidden">
-                        <a href="old" class="hover:text-gray-400 text-lg">Old</a>
-                        <a href="product/lux" class="hover:text-gray-400 text-lg">Lux</a>
-                        <a href="product/modern" class="hover:text-gray-400 text-lg">Modern</a>
-
-                        <a href="add" class="hover:text-gray-400 text-lg">Add Items</a>
-                        <a href="update" class="hover:text-gray-400 text-lg">Update
-                            Items</a>
-                        <a href="delete" class="hover:text-gray-400 text-lg">Delete
-                            Items</a>
-
+                       
+                        <a href="add" class="hover:text-gray-400 text-lg text-center w-full">Add Items</a>
+                        <a href="update" class="hover:text-gray-400 text-lg text-center w-full">Update Items</a>
+                        <a href="delete" class="hover:text-gray-400 text-lg text-center w-full">Delete Items</a>
                     </div>
                 </div>
-                <a href="contact" class="hover:text-gray-400 text-xl">Contact</a>
+
+                <a href="contact" class="hover:text-gray-400 text-xl text-center w-full">Contact</a>
             </div>
         </div>
+
+
     </nav>
 
     <!-- Slide-in Animation -->

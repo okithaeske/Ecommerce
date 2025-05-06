@@ -1,13 +1,12 @@
 <?php
 $base = './'; // update if hosted inside a folder
-include 'components/header.php';
 
 $page = $_GET['page'] ?? 'home';
 $category = $_GET['category'] ?? null;
 
 // Routing logic
 switch ($page) {
-    case 'product':
+    case 'products':
         include 'view/product.php';
         break;
     case 'add':
@@ -25,7 +24,17 @@ switch ($page) {
     case 'about':
         include 'view/about.php';
         break;
+    case 'login':
+        include 'auth/login.php';
+        break;
+    case 'roleselection':
+        include 'auth/roleselection.php';
+        break;
+    case 'register':
+        include 'auth/register.php';
+        break;
     default:
-        include 'view/index.php';
+        include 'view/home.php';
         break;
 }
+

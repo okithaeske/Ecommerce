@@ -15,13 +15,13 @@
         <h1 class="text-white text-3xl font-bold mb-4">Choose Your Role</h1>
 
         <div class="flex flex-col space-y-4">
-            <a href="register.php?role=user"
+            <a href="register?role=user"
                 class="bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-xl text-xl flex items-center justify-center space-x-3 transition duration-300 shadow-lg hover:shadow-xl">
                 <i class="fas fa-user"></i>
                 <span>Register as User</span>
             </a>
 
-            <a href="register.php?role=seller"
+            <a href="register?role=seller"
                 class="bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-xl text-xl flex items-center justify-center space-x-3 transition duration-300 shadow-lg hover:shadow-xl">
                 <i class="fas fa-store"></i>
                 <span>Register as Seller</span>

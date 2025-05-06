@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- navbar -->
-    <!-- <?php include '../components/header.php'; ?> -->
+    <!-- <?php include 'components/header.php'; ?> -->
   
 
 

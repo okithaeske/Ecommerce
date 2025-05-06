@@ -6,8 +6,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^home$ index.php?page=home [L]
 RewriteRule ^about$ index.php?page=about [L]
-RewriteRule ^product/([a-zA-Z0-9]+)$ index.php?page=product&category=$1 [L]
 RewriteRule ^add$ index.php?page=add [L]
 RewriteRule ^update$ index.php?page=update [L]
 RewriteRule ^delete$ index.php?page=delete [L]
 RewriteRule ^contact$ index.php?page=contact [L]
+RewriteRule ^products$ index.php?page=product [L]
+RewriteRule ^login$ index.php?page=login [L]
+RewriteRule ^roleselection$ index.php?page=roleselection [L]
+RewriteRule ^register$ index.php?page=register [L]
+
+

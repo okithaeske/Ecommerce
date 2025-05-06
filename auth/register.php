@@ -1,7 +1,67 @@
 <?php
-$role = isset($_GET['role']) ? $_GET['role'] : 'user';
-$roleTitle = ucfirst($role); // Capitalize first letter
+$role = isset($_GET['role']) ? $_GET['role'] : 'user'; // Defaults to 'user' if not provided
+$roleTitle = ucfirst($role); // Makes it "User" or "Seller"
 ?>
+
+<?php
+// DB connection
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "luxury_ecommerce"; // Change this to your actual DB name
+
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle POST request from register form
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $confirm = $_POST['confirm_password'];
+    $role = $_POST['role'];
+
+    // Password match check
+    if ($password !== $confirm) {
+        header("Location: register.php?role=$role&message=Passwords do not match&type=error");
+        exit;
+    }
+
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT user_id FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        header("Location: register");
+        exit;
+    }
+    $stmt->close();
+
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    // Insert user
+    $insert = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
+    $insert->bind_param("ssss", $name, $email, $hashedPassword, $role);
+
+    if ($insert->execute()) {
+        header("Location: register?role=$role&message=Registration successful!&type=success");
+    } else {
+        header("Location: register?role=$role&message=Error registering user&type=error");
+    }
+
+    $insert->close();
+
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +78,10 @@ $roleTitle = ucfirst($role); // Capitalize first letter
 
     <div class="bg-gray-800 rounded-2xl shadow-xl p-10 w-full max-w-lg">
         <h2 class="text-3xl font-bold text-center mb-6">Register as <?= $roleTitle ?></h2>
+        <?php if (isset($message))
+            echo "<p class='mb-4 text-center text-red-500'>$message</p>"; ?>
+        <form action="register" method="POST" class="space-y-5">
 
-        <form action="register_handler.php" method="POST" class="space-y-5">
-            <!-- Hidden role input -->
-            <input type="hidden" name="role" value="<?= $role ?>">
-    
             <div>
                 <label for="name" class="block mb-1">User Name</label>
                 <input type="text" name="name" id="name" required
@@ -33,6 +92,18 @@ $roleTitle = ucfirst($role); // Capitalize first letter
                 <label for="email" class="block mb-1">Email</label>
                 <input type="email" name="email" id="email" required
                     class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <span>Select Role:</span>
+                <div class="flex items-center mb-4">
+                    <span>User</span>
+                    <input type="radio" name="role" id="role" value="user"
+                        class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span>Seller</span>
+                    <input type="radio" name="role" id="role" value="seller"
+                        class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
             </div>
 
 
@@ -68,7 +139,7 @@ $roleTitle = ucfirst($role); // Capitalize first letter
 
         <p class="text-center text-sm text-gray-400 mt-5">
             Already have an account?
-            <a href="login.php" class="text-blue-400 hover:underline">Login here</a>
+            <a href="login" class="text-blue-400 hover:underline">Login here</a>
         </p>
     </div>
 

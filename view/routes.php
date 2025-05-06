@@ -3,18 +3,12 @@ $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
     case '/home':
-        include 'view/index.php';
+        include 'view/home.php';
         break;
     case '/about':
         include 'view/about.php';
         break;
-    case '/old':
-        include 'view/product.php';
-        break;
-    case 'product/lux':
-        include 'view/product.php';
-        break;
-    case '/product/modern':
+    case '/products':
         include 'view/product.php';
         break;
     case '/add':
@@ -28,6 +22,15 @@ switch ($request) {
         break;
     case '/contact':
         include 'view/contact.php';
+        break;
+    case '/login':
+        include 'auth/login.php';
+        break;
+    case '/roleselection':
+        include 'auth/roleselection.php';
+        break;
+    case '/register':
+        include 'auth/register.php';
         break;
     default:
         include 'view/404.php';

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 
 <body>
     <!-- navbar -->
-    <!-- <?php include '/components/header.php'; ?> -->
+    <?php include 'components/header.php'; ?>
 
 
     <!-- Hero Section -->
@@ -88,7 +88,7 @@
     <?php include 'components/scrollscript.php'; ?>
 
     <!-- Footer -->
-    <?php include 'components/footer.php'; ?> 
+    <?php include 'components/footer.php'; ?>
 
 </body>
 
