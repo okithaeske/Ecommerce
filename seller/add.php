@@ -1,3 +1,47 @@
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "luxury_ecommerce";
+
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $seller_id = $_POST['seller_id'] ?? 0;
+    $category = $_POST['category'] ?? '';
+    $name = $_POST['name'] ?? '';
+    $price = $_POST['price'] ?? 0.0;
+    $description = $_POST['description'] ?? '';
+
+    if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) {
+        $imageTmp = $_FILES["image"]["tmp_name"];
+        $imageData = file_get_contents($imageTmp);
+
+        // Match insert order: Seller_ID, Category_name, Name, Price, Image, Description
+        $stmt = $conn->prepare("INSERT INTO product (Seller_ID, Category_name, Name, Price, Image, Description) VALUES (?, ?, ?, ?, ?, ?)");
+        $null = NULL;
+        $stmt->bind_param("issdbs", $seller_id, $category, $name, $price, $null, $description);
+        $stmt->send_long_data(4, $imageData); // index 4 = 5th param (Image)
+
+        if ($stmt->execute()) {
+            echo "Product added successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        echo "Please upload a valid image.";
+    }
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +68,8 @@
                 <p class="text-gray-300 mt-1">Enter product details to add to the database</p>
             </div>
 
-            <form action="http://localhost/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
-            <!-- <form action="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']; ?>/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6"> -->
+            <form action="add" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+                <!-- <form action="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']; ?>/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6"> -->
 
                 <!-- Product Name -->
                 <div>

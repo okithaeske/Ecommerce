@@ -1,4 +1,5 @@
 <?php
+
 $role = isset($_GET['role']) ? $_GET['role'] : 'user'; // Defaults to 'user' if not provided
 $roleTitle = ucfirst($role); // Makes it "User" or "Seller"
 ?>
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Password match check
     if ($password !== $confirm) {
-        header("Location: register.php?role=$role&message=Passwords do not match&type=error");
+        header("Location: register?role=$role&message=Passwords do not match&type=error");
         exit;
     }
 
@@ -51,7 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert->bind_param("ssss", $name, $email, $hashedPassword, $role);
 
     if ($insert->execute()) {
-        header("Location: register?role=$role&message=Registration successful!&type=success");
+        $message = "Registration successful! You can now log in.";
+        header("Location: store_register?message=Registration successful&type=success");
+        exit;
     } else {
         header("Location: register?role=$role&message=Error registering user&type=error");
     }
@@ -77,9 +80,7 @@ $conn->close();
     class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white min-h-screen flex items-center justify-center">
 
     <div class="bg-gray-800 rounded-2xl shadow-xl p-10 w-full max-w-lg">
-        <h2 class="text-3xl font-bold text-center mb-6">Register as <?= $roleTitle ?></h2>
-        <?php if (isset($message))
-            echo "<p class='mb-4 text-center text-red-500'>$message</p>"; ?>
+        <h2 class="text-3xl font-bold text-center mb-6">Register</h2>
         <form action="register" method="POST" class="space-y-5">
 
             <div>
@@ -98,10 +99,10 @@ $conn->close();
                 <span>Select Role:</span>
                 <div class="flex items-center mb-4">
                     <span>User</span>
-                    <input type="radio" name="role" id="role" value="user"
+                    <input type="radio" name="role" id="role_user" value="user"
                         class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <span>Seller</span>
-                    <input type="radio" name="role" id="role" value="seller"
+                    <input type="radio" name="role" id="role_seller" value="seller"
                         class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
             </div>

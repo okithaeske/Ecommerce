@@ -26,8 +26,8 @@ switch ($request) {
     case '/login':
         include 'auth/login.php';
         break;
-    case '/roleselection':
-        include 'auth/roleselection.php';
+    case '/store_register':
+        include 'auth/store_register.php';
         break;
     case '/register':
         include 'auth/register.php';

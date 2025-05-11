@@ -14,5 +14,6 @@ RewriteRule ^products$ index.php?page=product [L]
 RewriteRule ^login$ index.php?page=login [L]
 RewriteRule ^roleselection$ index.php?page=roleselection [L]
 RewriteRule ^register$ index.php?page=register [L]
+RewriteRule ^store_register$ index.php?page=store_register [L]
 
 

@@ -33,6 +33,9 @@ switch ($page) {
     case 'register':
         include 'auth/register.php';
         break;
+    case 'store_register':
+        include 'auth/store_register.php';
+        break;
     default:
         include 'view/home.php';
         break;
