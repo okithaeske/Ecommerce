@@ -18,18 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
 
-    $stmt = $conn->prepare("SELECT user_id, password FROM user WHERE email = ?");
+    $stmt = $conn->prepare("SELECT user_id,name,role, password FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows === 1) {
-        $stmt->bind_result($userId, $hashedPassword);
+        $stmt->bind_result($userId,$name,$role,$hashedPassword);
         $stmt->fetch();
 
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $userId;
             $_SESSION['email'] = $email;
+            $_SESSION['name'] =$name ;
+            $_SESSION['role'] = $role;
             header("Location: home");
             exit();
         } else {

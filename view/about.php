@@ -15,7 +15,8 @@
 
 <body>
     <!-- navbar -->
-    <!-- <?php include '../components/header.php'; ?> -->
+    <?php include 'components/header.php'; ?>
+
 
     <!-- Brand Legacy Section -->
     <div class="parallax h-screen flex items-center justify-center text-center px-6">

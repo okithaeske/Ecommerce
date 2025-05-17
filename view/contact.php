@@ -8,15 +8,15 @@
     <!-- css -->
     <script src="../assets/tailwind.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-       <!-- Font Awesome CDN link -->
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-       <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Awesome CDN link -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="bg-black text-white font-sans">
-    <!-- navbar -->
-    <!-- <?php include '../components/header.php'; ?> -->
 
+    <!-- navbar -->
+    <?php include 'components/header.php'; ?>
     <!-- Background music -->
     <?php include 'components/backmusic.php'; ?>
 

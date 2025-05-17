@@ -15,8 +15,8 @@ switch ($page) {
     case 'update':
         include 'seller/update.php';
         break;
-    case 'delete':
-        include 'seller/delete.php';
+    case 'dashboard':
+        include 'seller/dashboard.php';
         break;
     case 'contact':
         include 'view/contact.php';

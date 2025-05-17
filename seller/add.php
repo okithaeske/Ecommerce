@@ -1,4 +1,19 @@
 <?php
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Check if the user is a seller
+if ($_SESSION['role'] == 'user') {
+    header("Location: home");
+    exit();
+}
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -10,7 +25,7 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $seller_id = $_POST['seller_id'] ?? 0;
+    $seller_id = $_SESSION['user_id'];
     $category = $_POST['category'] ?? '';
     $name = $_POST['name'] ?? '';
     $price = $_POST['price'] ?? 0.0;
@@ -20,11 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $imageTmp = $_FILES["image"]["tmp_name"];
         $imageData = file_get_contents($imageTmp);
 
-        // Match insert order: Seller_ID, Category_name, Name, Price, Image, Description
         $stmt = $conn->prepare("INSERT INTO product (Seller_ID, Category_name, Name, Price, Image, Description) VALUES (?, ?, ?, ?, ?, ?)");
         $null = NULL;
         $stmt->bind_param("issdbs", $seller_id, $category, $name, $price, $null, $description);
-        $stmt->send_long_data(4, $imageData); // index 4 = 5th param (Image)
+        $stmt->send_long_data(4, $imageData);
 
         if ($stmt->execute()) {
             echo "Product added successfully.";
@@ -40,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -69,7 +84,7 @@ $conn->close();
             </div>
 
             <form action="add" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
-                <!-- <form action="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']; ?>/ecommerce/addproduct" method="POST" enctype="multipart/form-data" class="p-6 space-y-6"> -->
+                
 
                 <!-- Product Name -->
                 <div>

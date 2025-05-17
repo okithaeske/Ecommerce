@@ -1,4 +1,16 @@
 <?php
+session_start(); // Ensure this is at the top of your script
+
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+    echo "User ID: " . htmlspecialchars($userId); // Display the user ID for debugging
+    // You can also use it in your SQL queries or other logic
+    // Proceed with using $userId as needed
+} else {
+    // Handle the case where user_id is not set in the session
+    echo "Invalid access. User ID not found.";
+    exit;
+}
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -27,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Please upload a valid image file for the store logo.";
     } else {
         // Check for duplicate store name or phone number
-        $checkStmt = $conn->prepare("SELECT * FROM seller WHERE store_name = ? AND phone_number = ?");
+        $checkStmt = $conn->prepare("SELECT * FROM sellers WHERE store_name = ? AND phone_number = ?");
         $checkStmt->bind_param("ss", $store_name, $phone_number);
         $checkStmt->execute();
         $result = $checkStmt->get_result();
@@ -37,13 +49,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // All validations passed – proceed
             $logo_content = file_get_contents($logo);
-            $stmt = $conn->prepare("INSERT INTO seller (store_name, store_logo, phone_number) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $store_name, $logo_content, $phone_number);
+            // Insert the store with the associated user_id
+            $stmt = $conn->prepare("INSERT INTO sellers (store_name, store_logo, phone_number, user_id) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sssi", $store_name, $logo_content, $phone_number, $userId);
 
             if ($stmt->execute()) {
                 $message = "Store registered successfully! Redirecting to login...";
                 $success = true;
                 header("location: login?message=Registration successful&type=success");
+                exit;
             } else {
                 $message = "Database error: " . $stmt->error;
             }
@@ -56,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>

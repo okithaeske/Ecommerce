@@ -1,3 +1,9 @@
+<?php
+// Start the session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,11 +29,17 @@
         <div class="container mx-auto flex items-center justify-center relative ">
 
             <!-- Profile Icon on Left -->
-            <a href="login" class="text-white text-2xl absolute left-0 hover:text-gray-400">
-                <i class="fas fa-user-circle"></i>
-                <span class="text-sm">Login</span>
-            </a>
-
+            <?php if (isset($_SESSION['name'])): ?>
+                <a href="profile" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="text-sm"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
+                </a>
+            <?php else: ?>
+                <a href="login" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="text-sm">Login</span>
+                </a>
+            <?php endif; ?>
 
             <!-- Logo in Center -->
             <a href="home" class="text-white text-3xl font-bold absolute bg-center">
@@ -51,24 +63,7 @@
                 <a href="home" class="hover:text-gray-400 text-xl text-center w-full">Home</a>
                 <a href="about" class="hover:text-gray-400 text-xl text-center w-full">About</a>
                 <a href="products" class="hover:text-gray-400 text-xl text-center w-full">Products</a>
-
-                <!-- Products with dropdown -->
-                <div class="relative w-full flex flex-col items-center">
-                    <button id="products-dropdown"
-                        class="hover:text-gray-400 text-xl flex items-center justify-center w-full text-center">
-                        Products
-                        <i id="dropdown-icon"
-                            class="fas fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
-                    </button>
-
-                    <div id="product-categories" class="flex flex-col items-center mt-2 space-y-3 w-full hidden">
-                       
-                        <a href="add" class="hover:text-gray-400 text-lg text-center w-full">Add Items</a>
-                        <a href="update" class="hover:text-gray-400 text-lg text-center w-full">Update Items</a>
-                        <a href="delete" class="hover:text-gray-400 text-lg text-center w-full">Delete Items</a>
-                    </div>
-                </div>
-
+                <a href="dashboard" class="hover:text-gray-400 text-xl text-center w-full">Dashboard</a>
                 <a href="contact" class="hover:text-gray-400 text-xl text-center w-full">Contact</a>
             </div>
         </div>

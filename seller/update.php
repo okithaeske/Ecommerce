@@ -1,86 +1,97 @@
 <?php
-// Example: Connect to DB
-// include '../config/db.php';
+session_start();
 
-// // Get product ID
-// $product_id = $_GET['id'] ?? null;
-// if (!$product_id) {
-//     echo "Product ID missing!";
-//     exit;
-// }
+// Check login and role
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seller') {
+    header("Location: login");
+    exit();
+}
 
-// // Fetch product from database (dummy data here)
-// $product = [
-//     'id' => $product_id,
-//     'name' => 'Sample Product',
-//     'description' => 'This is a sample product.',
-//     'category' => 'modern',
-//     'price' => 49.99,
-//     'image' => '../uploads/sample.jpg'
-// ];
-// ?>
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "luxury_ecommerce";
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$seller_id = $_SESSION['user_id'];
+
+// Handle POST redirection from dashboard
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
+    $_SESSION['edit_product_id'] = intval($_POST['product_id']);
+    header("Location: update.php");
+    exit();
+}
+
+// Load product_id from session
+$product_id = isset($_SESSION['edit_product_id']) ? intval($_SESSION['edit_product_id']) : 0;
+
+// Fetch product
+$stmt = $conn->prepare("SELECT * FROM product WHERE product_id = ? AND Seller_ID = ?");
+$stmt->bind_param("ii", $product_id, $seller_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$product = $result->fetch_assoc();
+$stmt->close();
+
+if (!$product) {
+    echo "Product not found or access denied.";
+    exit();
+}
+
+// Handle update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
+    $name = $_POST['name'];
+    $category = $_POST['category'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $imageData = file_get_contents($_FILES['image']['tmp_name']);
+        $stmt = $conn->prepare("UPDATE product SET Name=?, Category_name=?, Price=?, Description=?, Image=? WHERE product_id=? AND Seller_ID=?");
+        $null = NULL;
+        $stmt->bind_param("ssdssbi", $name, $category, $price, $description, $null, $product_id, $seller_id);
+        $stmt->send_long_data(4, $imageData);
+    } else {
+        // Keep old image
+        $stmt = $conn->prepare("UPDATE product SET Name=?, Category_name=?, Price=?, Description=? WHERE product_id=? AND Seller_ID=?");
+        $stmt->bind_param("ssdssi", $name, $category, $price, $description, $product_id, $seller_id);
+    }
+
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+
+    unset($_SESSION['edit_product_id']);
+    header("Location: dashboard");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Product</title>
+    <title>Edit Product</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
+<body class="bg-gray-100 font-sans">
+    <div class="max-w-2xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-6">Edit Product</h1>
+        <form method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md grid gap-4">
+            <input type="text" name="name" value="<?= htmlspecialchars($product['Name']) ?>" required class="p-2 border rounded" placeholder="Product Name">
+            <input type="text" name="category" value="<?= htmlspecialchars($product['Category_name']) ?>" required class="p-2 border rounded" placeholder="Category">
+            <input type="number" name="price" step="0.01" value="<?= $product['Price'] ?>" required class="p-2 border rounded" placeholder="Price">
+            <textarea name="description" required class="p-2 border rounded"><?= htmlspecialchars($product['Description']) ?></textarea>
 
-<body>
-    <!-- <?php include '../components/header.php'; ?> -->
+            <label class="block text-sm text-gray-600">Replace Image (optional):</label>
+            <input type="file" name="image" accept="image/*" class="p-2 border rounded">
 
-    <div class="container mx-auto pt-32 pb-16 px-4">
-        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="bg-gray-800 text-white p-6">
-                <h1 class="text-2xl font-bold">Update Product</h1>
-                <p class="text-gray-300 mt-1">Modify the fields below to update your product</p>
-            </div>
+            <img src="data:image/jpeg;base64,<?= base64_encode($product['Image']) ?>" class="w-48 h-32 object-cover mt-2 rounded shadow">
 
-            <form action="updateproducthandler.php" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
-                <input type="hidden" name="id" value="<?= $product['id'] ?>">
-
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Product Name</label>
-                    <input type="text" name="name" value="<?= htmlspecialchars($product['name']) ?>" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600">
-                </div>
-
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Description</label>
-                    <textarea name="description" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600"><?= htmlspecialchars($product['description']) ?></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Category</label>
-                    <select name="category" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600">
-                        <option value="">Select Category</option>
-                        <option value="old" <?= $product['category'] == 'old' ? 'selected' : '' ?>>Old</option>
-                        <option value="lux" <?= $product['category'] == 'lux' ? 'selected' : '' ?>>Lux</option>
-                        <option value="modern" <?= $product['category'] == 'modern' ? 'selected' : '' ?>>Modern</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Price ($)</label>
-                    <input type="number" step="0.01" name="price" value="<?= $product['price'] ?>" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600">
-                </div>
-
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Product Image</label>
-                    <img src="<?= $product['image'] ?>" alt="Current Image" class="h-32 mb-2">
-                    <input type="file" name="image" accept="image/*" class="w-full">
-                    <p class="text-sm text-gray-500 mt-1">Upload only if you want to change the image.</p>
-                </div>
-
-                <div class="flex justify-end">
-                    <button type="submit" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition">
-                        Update Product
-                    </button>
-                </div>
-            </form>
-        </div>
+            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Update Product</button>
+            <a href="dashboard" class="text-blue-500 underline mt-2">← Back to Dashboard</a>
+        </form>
     </div>
 </body>
 </html>

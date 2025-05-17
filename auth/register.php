@@ -52,9 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert->bind_param("ssss", $name, $email, $hashedPassword, $role);
 
     if ($insert->execute()) {
-        $message = "Registration successful! You can now log in.";
-        header("Location: store_register?message=Registration successful&type=success");
-        exit;
+        $newUserId = $insert->insert_id; // Get the auto-generated user_id
+
+        if ($role === 'seller') {
+            session_start(); // Ensure this is at the top of your script
+            // After successful registration and insertion into the database
+            $_SESSION['user_id'] = $newUserId; // Replace with your actual user ID variable
+
+            // Redirect to store_register with user_id
+            header("Location: store_register?user_id=$newUserId&message=Registration successful&type=success");
+            exit;
+        } elseif ($role === 'user') {
+            // Regular user, redirect to login
+            header("Location: login?message=Registration successful&type=success");
+            exit;
+        }
     } else {
         header("Location: register?role=$role&message=Error registering user&type=error");
     }
