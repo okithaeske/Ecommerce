@@ -1,14 +1,12 @@
 <?php
 session_start();
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "luxury_ecommerce";
-
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error)
-    die("Connection failed: " . $conn->connect_error);
-
+// Database connection
+include 'config/db.php';
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login");
+    exit();
+}
 // Fetch All Products
 $result = $conn->query("SELECT product_id, Name, Category_name, Price, Description, Image FROM product");
 $products = $result->fetch_all(MYSQLI_ASSOC);
@@ -31,8 +29,8 @@ $conn->close();
     <!-- Navbar -->
     <?php include 'components/header.php'; ?>
 
-    <section class="pt-6 pb-5">
-        <section class="bg-black py-10 w-screen overflow-hidden">
+    <section class="pt-16">
+        <section class="bg-black w-screen overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-3 w-full">
 
                 <!-- Main Banner -->
@@ -88,32 +86,53 @@ $conn->close();
         </section>
 
 
-        <!-- Featured Products -->
-        <section class="max-w-7xl mx-auto px-4 py-12 bg-[#D7A9A9]">
-            <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-white">Featured Products</h2>
+        <section class="w-screen mb-7 mx-auto px-4 py-12 bg-[#F9FAFB]">
+            <?php
+            $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+            ?>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-b pb-2 text-gray-900">OUR PRODUCTS</h2>
+                <a href="cart" class="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+                    🛒 Cart (<?= $cartCount ?>)
+                </a>
+            </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <?php foreach ($products as $product): ?>
-                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-all text-center p-4">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($product['Image']) ?>"
-                            alt="<?= htmlspecialchars($product['Name']) ?>" class="w-full h-40 object-contain mb-3">
+                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-all relative group">
 
-                        <h3 class="text-sm font-medium text-gray-800 truncate"><?= htmlspecialchars($product['Name']) ?>
-                        </h3>
-                        <p class="text-sm text-black font-bold mt-1">$<?= number_format($product['Price'], 2) ?></p>
+                        <!-- Product Image -->
+                        <div class="p-4 h-48 flex justify-center items-center bg-white">
+                            <img src="data:image/jpeg;base64,<?= base64_encode($product['Image']) ?>"
+                                alt="<?= htmlspecialchars($product['Name']) ?>"
+                                class="max-h-40 object-contain transition-transform duration-300 group-hover:scale-105">
+                        </div>
 
-                        <form action="cart.php" method="POST" class="mt-3">
-                            <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                            <button type="submit" name="add_to_cart"
-                                class="mt-2 w-full bg-black text-white py-1 text-sm rounded hover:bg-gray-800">
-                                Add to Cart 🛒
-                            </button>
-                        </form>
+                        <!-- Product Info -->
+                        <div class="p-4 text-center">
+                            <h3 class="text-sm font-semibold text-gray-800 mb-1 truncate">
+                                <?= htmlspecialchars($product['Name']) ?>
+                            </h3>
+                            <div class="text-sm">
+                                <!-- <span
+                                    class="text-gray-400 line-through mr-1">$<?= number_format($product['Price'] * 1.15, 2) ?></span> -->
+                                <span class="text-black font-bold">$<?= number_format($product['Price'], 2) ?></span>
+                            </div>
+
+                            <!-- Add to Cart Button -->
+                            <form action="add_to_cart" method="POST" class="mt-3">
+                                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                                <button type="submit" name="add_to_cart"
+                                    class="mt-2 w-full bg-black text-white py-1.5 text-sm rounded hover:bg-gray-800 transition">
+                                    Add to Cart 🛒
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </section>
-        <!-- Footer -->
+
         <?php include 'components/footer.php'; ?>
 
 </body>

@@ -22,6 +22,21 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 
 <body>
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+            <h2 class="text-xl font-semibold mb-4">Logout</h2>
+            <p class="mb-6">Are you sure you want to logout?</p>
+            <div class="flex justify-around">
+                <form action="logout" method="POST">
+                    <button type="submit"
+                        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Yes, Logout</button>
+                </form>
+                <button id="cancelLogout"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <nav id="navbar"
@@ -30,10 +45,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <!-- Profile Icon on Left -->
             <?php if (isset($_SESSION['name'])): ?>
-                <a href="profile" class="text-white text-2xl absolute left-0 hover:text-gray-400">
+                <button id="profile-button"
+                    class="text-white text-2xl absolute left-0 hover:text-gray-400 focus:outline-none">
                     <i class="fas fa-user-circle"></i>
                     <span class="text-sm"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
-                </a>
+                </button>
             <?php else: ?>
                 <a href="login" class="text-white text-2xl absolute left-0 hover:text-gray-400">
                     <i class="fas fa-user-circle"></i>
@@ -114,6 +130,30 @@ if (session_status() === PHP_SESSION_NONE) {
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         });
     </script>
+
+    <script>
+    const profileBtn = document.getElementById('profile-button');
+    const logoutModal = document.getElementById('logoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+
+    if (profileBtn && logoutModal && cancelLogout) {
+        profileBtn.addEventListener('click', () => {
+            logoutModal.classList.remove('hidden');
+        });
+
+        cancelLogout.addEventListener('click', () => {
+            logoutModal.classList.add('hidden');
+        });
+
+        // Optional: close modal if user clicks outside of it
+        logoutModal.addEventListener('click', (e) => {
+            if (e.target === logoutModal) {
+                logoutModal.classList.add('hidden');
+            }
+        });
+    }
+</script>
+
 
 
 

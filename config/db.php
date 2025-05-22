@@ -1,25 +1,12 @@
 <?php
-class Database
-{
-    private $host = 'localhost';
-    private $db_name = 'luxury_ecommerce';
-    private $username = 'root';
-    private $password = '';
-    public $conn;
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "luxury_ecommerce";
 
-    public function connect()
-    {
-        try {
-            $this->conn = new PDO(
-                "mysql:host=$this->host;dbname=$this->db_name;charset=utf8",
-                $this->username,
-                $this->password
-            );
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $this->conn;
-        } catch (PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
-    }
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

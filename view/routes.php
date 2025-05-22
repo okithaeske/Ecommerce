@@ -32,6 +32,18 @@ switch ($request) {
     case '/register':
         include 'auth/register.php';
         break;
+    case 'cart':
+        include 'user/cart.php';
+        break;
+    case 'add_to_cart':
+        include 'user/add_to_cart.php';
+        break;
+    case 'update_cart':
+        include 'user/update_cart.php';
+        break;
+    case 'logout':
+        include 'auth/logout.php';
+        break;
     default:
         include 'view/404.php';
         break;

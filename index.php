@@ -4,6 +4,7 @@ $base = './'; // update if hosted inside a folder
 $page = $_GET['page'] ?? 'home';
 $category = $_GET['category'] ?? null;
 
+
 // Routing logic
 switch ($page) {
     case 'products':
@@ -36,8 +37,27 @@ switch ($page) {
     case 'store_register':
         include 'auth/store_register.php';
         break;
+    case 'update_product':
+        include 'seller/update_product.php';
+        break;
+    case 'cart':
+        include 'user/cart.php';
+        break;
+    case 'add_to_cart':
+        include 'user/add_to_cart.php';
+        break;
+    case 'update_cart':
+        include 'user/update_cart.php';
+        break;
+    case 'logout':
+        include 'auth/logout.php';
+        break;
     default:
         include 'view/home.php';
         break;
+
+
+        
 }
+
 

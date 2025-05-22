@@ -3,7 +3,7 @@ session_start();
 
 // Check login and role
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seller') {
-    header("Location: login.php");
+    header("Location: login");
     exit();
 }
 
@@ -111,7 +111,7 @@ $conn->close();
                         <p class="text-lg font-semibold text-green-600 mb-2">$<?= number_format($product['Price'], 2) ?></p>
                         <p class="text-sm text-gray-700 mb-4"><?= htmlspecialchars($product['Description']) ?></p>
                         <div class="flex justify-between items-center">
-                            <form action="update">
+                            <form action="update" class="inline">
                                 <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                                 <button type="submit" class="text-blue-600 hover:underline font-medium">Edit</button>
                             </form>

@@ -1,20 +1,64 @@
 <?php
 session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $product_id = intval($_POST['product_id']);
+include 'config/db.php';
 
-    // Initialize cart if empty
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
+$cart = $_SESSION['cart'] ?? [];
+
+$products = [];
+
+if (!empty($cart)) {
+    $ids = implode(",", array_map('intval', array_keys($cart)));
+    $result = $conn->query("SELECT product_id, Name, Price, Image FROM product WHERE product_id IN ($ids)");
+    while ($row = $result->fetch_assoc()) {
+        $row['quantity'] = $cart[$row['product_id']];
+        $products[] = $row;
     }
-
-    // Add or increment product
-    if (!isset($_SESSION['cart'][$product_id])) {
-        $_SESSION['cart'][$product_id] = 1;
-    } else {
-        $_SESSION['cart'][$product_id]++;
-    }
-
-    header("Location: shop.php?added=1");
-    exit();
 }
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+    <h1 class="text-3xl mb-6 font-bold">Your Cart</h1>
+
+    <?php if (empty($products)): ?>
+        <p>Your cart is empty.</p>
+    <?php else: ?>
+        <div class="space-y-4">
+            <?php foreach ($products as $item): ?>
+                <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($item['Image']) ?>" class="w-20 h-20 object-contain">
+                        <div>
+                            <h3 class="font-semibold"><?= htmlspecialchars($item['Name']) ?></h3>
+                            <p>$<?= number_format($item['Price'], 2) ?></p>
+                            <p>Quantity: <?= $item['quantity'] ?></p>
+                            <div class="flex space-x-2 mt-2">
+                                <form action="update_cart" method="post" class="flex items-center space-x-2">
+                                    <input type="hidden" name="product_id" value="<?= $item['product_id'] ?>">
+                                    <button name="action" value="add" class="px-2 bg-green-500 text-white rounded">+</button>
+                                    <button name="action" value="subtract"
+                                        class="px-2 bg-yellow-500 text-white rounded">−</button>
+                                    <button name="action" value="remove" class="px-2 bg-red-600 text-white rounded">🗑</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-bold text-lg">
+                        $<?= number_format($item['Price'] * $item['quantity'], 2) ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <a href="products" class="block mt-6 text-blue-700 font-semibold">← Continue Shopping</a>
+</body>
+
+</html>

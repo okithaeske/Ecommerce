@@ -7,7 +7,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^home$ index.php?page=home [L]
 RewriteRule ^about$ index.php?page=about [L]
 RewriteRule ^add$ index.php?page=add [L]
-RewriteRule ^update$ index.php?page=update [L]
 RewriteRule ^dashboard$ index.php?page=dashboard [L]
 RewriteRule ^contact$ index.php?page=contact [L]
 RewriteRule ^products$ index.php?page=products [L]
@@ -15,6 +14,16 @@ RewriteRule ^login$ index.php?page=login [L]
 RewriteRule ^roleselection$ index.php?page=roleselection [L]
 RewriteRule ^register$ index.php?page=register [L]
 RewriteRule ^store_register$ index.php?page=store_register [L]
+RewriteRule ^update$ index.php?page=update [L]
+RewriteRule ^cart$ index.php?page=cart [L]
+RewriteRule ^add_to_cart$ index.php?page=add_to_cart [L]
+RewriteRule ^update_product$ index.php?page=update_product [L]
+RewriteRule ^update_cart$ index.php?page=update_cart [L]
+RewriteRule ^logout$ index.php?page=logout [L]
+
+
+# Rewriting /update to index.php?page=update
+
 
 # Handle delete URL (e.g., dashboard/delete/1)
 RewriteRule ^dashboard/delete/([0-9]+)$ index.php?page=dashboard&delete=$1 [L]
