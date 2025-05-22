@@ -39,7 +39,7 @@ $conn->close();
                     <img src="assets/images/productsbig.jpg" alt="Zenith Watch"
                         class="w-full h-[32rem] object-cover absolute inset-0 z-0">
                     <div class="relative z-10 p-8 bg-gradient-to-r from-white/80">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white">ZENITH</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">ROLEX</h2>
                         <p class="uppercase text-sm text-white tracking-wide">Men's Collection</p>
                         <p class="mt-2 text-white text-sm max-w-xl">
                             Nullam risus tristique ultrice dapibus. Explore the bold look of our futuristic analog
@@ -106,7 +106,15 @@ $conn->close();
                         <div class="p-4 h-48 flex justify-center items-center bg-white">
                             <img src="data:image/jpeg;base64,<?= base64_encode($product['Image']) ?>"
                                 alt="<?= htmlspecialchars($product['Name']) ?>"
-                                class="max-h-40 object-contain transition-transform duration-300 group-hover:scale-105">
+                                class="max-h-40 object-contain transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+                                onclick="openModal(  '<?= $product['product_id'] ?>',
+        '<?= htmlspecialchars($product['Name']) ?>',
+        '<?= htmlspecialchars($product['Category_name']) ?>',
+        '<?= $product['Price'] ?>',
+        `<?= htmlspecialchars($product['Description']) ?>`,
+        '<?= base64_encode($product['Image']) ?>'
+     )">
+
                         </div>
 
                         <!-- Product Info -->
@@ -135,6 +143,50 @@ $conn->close();
         </section>
 
         <?php include 'components/footer.php'; ?>
+
+        <!-- Product Modal -->
+        <div id="productModal"
+            class="fixed inset-0 z-50 hidden bg-black bg-opacity-60 flex items-center justify-center">
+            <div class="bg-white w-11/12 md:w-3/4 h-3/4 rounded-lg shadow-lg overflow-y-auto relative">
+                <button onclick="closeModal()"
+                    class="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded hover:bg-gray-800">✖</button>
+                <div class="grid md:grid-cols-2 gap-4 p-6">
+                    <div class="flex justify-center items-center">
+                        <img id="modalImage" src="" alt="Product" class="max-h-[400px] object-contain rounded">
+                    </div>
+                    <div>
+                        <h2 id="modalName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+                        <p id="modalCategory" class="text-sm text-gray-500 mb-4"></p>
+                        <p id="modalPrice" class="text-xl font-semibold text-black mb-4"></p>
+                        <p id="modalDescription" class="text-gray-700 mb-4"></p>
+                        <form action="add_to_cart" method="POST">
+                            <input type="hidden" id="modalProductId" name="product_id" value="">
+                            <button type="submit"
+                                class="mt-2 w-full bg-black text-white py-2 text-sm rounded hover:bg-gray-800 transition">Add
+                                to Cart 🛒</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function openModal(productId, name, category, price, description, imageBase64) {
+                document.getElementById('modalProductId').value = productId;
+                document.getElementById('modalName').innerText = name;
+                document.getElementById('modalCategory').innerText = category;
+                document.getElementById('modalPrice').innerText = `$${parseFloat(price).toFixed(2)}`;
+                document.getElementById('modalDescription').innerText = description;
+                document.getElementById('modalImage').src = 'data:image/jpeg;base64,' + imageBase64;
+                document.getElementById('productModal').classList.remove('hidden');
+            }
+
+            function closeModal() {
+                document.getElementById('productModal').classList.add('hidden');
+            }
+        </script>
+
+
 
 </body>
 
