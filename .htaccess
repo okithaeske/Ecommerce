@@ -17,7 +17,6 @@ RewriteRule ^store_register$ index.php?page=store_register [L]
 RewriteRule ^update$ index.php?page=update [L]
 RewriteRule ^cart$ index.php?page=cart [L]
 RewriteRule ^add_to_cart$ index.php?page=add_to_cart [L]
-RewriteRule ^update_product$ index.php?page=update_product [L]
 RewriteRule ^update_cart$ index.php?page=update_cart [L]
 RewriteRule ^logout$ index.php?page=logout [L]
 

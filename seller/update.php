@@ -20,7 +20,7 @@ $seller_id = $_SESSION['user_id'];
 // Handle POST redirection from dashboard
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $_SESSION['edit_product_id'] = intval($_POST['product_id']);
-    header("Location: update.php");
+    header("Location: update");
     exit();
 }
 
