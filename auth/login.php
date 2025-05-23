@@ -32,7 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $email;
             $_SESSION['name'] = $name;
             $_SESSION['role'] = $role;
-            header("Location: home");
+           
+            // Redirect based on role
+            if ($role === 'admin') {
+                header("Location: admin_dashboard");
+            } else {
+                header("Location: home");
+            }
             exit();
         } else {
             $message = "Invalid password.";

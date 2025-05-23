@@ -79,7 +79,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="home" class="hover:text-gray-400 text-xl text-center w-full">Home</a>
                 <a href="about" class="hover:text-gray-400 text-xl text-center w-full">About</a>
                 <a href="products" class="hover:text-gray-400 text-xl text-center w-full">Products</a>
-                <a href="dashboard" class="hover:text-gray-400 text-xl text-center w-full">Dashboard</a>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller'): ?>
+                    <a href="dashboard" class="hover:text-gray-400 text-xl text-center w-full">Dashboard</a>
+                <?php endif; ?>
                 <a href="contact" class="hover:text-gray-400 text-xl text-center w-full">Contact</a>
             </div>
         </div>
@@ -132,27 +134,27 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 
     <script>
-    const profileBtn = document.getElementById('profile-button');
-    const logoutModal = document.getElementById('logoutModal');
-    const cancelLogout = document.getElementById('cancelLogout');
+        const profileBtn = document.getElementById('profile-button');
+        const logoutModal = document.getElementById('logoutModal');
+        const cancelLogout = document.getElementById('cancelLogout');
 
-    if (profileBtn && logoutModal && cancelLogout) {
-        profileBtn.addEventListener('click', () => {
-            logoutModal.classList.remove('hidden');
-        });
+        if (profileBtn && logoutModal && cancelLogout) {
+            profileBtn.addEventListener('click', () => {
+                logoutModal.classList.remove('hidden');
+            });
 
-        cancelLogout.addEventListener('click', () => {
-            logoutModal.classList.add('hidden');
-        });
-
-        // Optional: close modal if user clicks outside of it
-        logoutModal.addEventListener('click', (e) => {
-            if (e.target === logoutModal) {
+            cancelLogout.addEventListener('click', () => {
                 logoutModal.classList.add('hidden');
-            }
-        });
-    }
-</script>
+            });
+
+            // Optional: close modal if user clicks outside of it
+            logoutModal.addEventListener('click', (e) => {
+                if (e.target === logoutModal) {
+                    logoutModal.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 
 
 

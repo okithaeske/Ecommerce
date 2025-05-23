@@ -52,6 +52,9 @@ switch ($page) {
     case 'logout':
         include 'auth/logout.php';
         break;
+    case 'admin_dashboard':
+        include 'admin/admin_dashboard.php';
+        break;
     default:
         include 'view/home.php';
         break;

@@ -2,11 +2,7 @@
 session_start();
 // Database connection
 include 'config/db.php';
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login");
-    exit();
-}
+
 // Fetch All Products
 $result = $conn->query("SELECT product_id, Name, Category_name, Price, Description, Image FROM product");
 $products = $result->fetch_all(MYSQLI_ASSOC);

@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+// Database connection
+include 'config/db.php';
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login");
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
 
