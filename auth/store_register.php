@@ -3,7 +3,7 @@ session_start(); // Ensure this is at the top of your script
 
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
-    echo "User ID: " . htmlspecialchars($userId); // Display the user ID for debugging
+    // echo "User ID: " . htmlspecialchars($userId); // Display the user ID for debugging
     // You can also use it in your SQL queries or other logic
     // Proceed with using $userId as needed
 } else {

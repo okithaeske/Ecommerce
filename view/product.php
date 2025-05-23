@@ -89,9 +89,12 @@ $conn->close();
             ?>
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold border-b pb-2 text-gray-900">OUR PRODUCTS</h2>
-                <a href="cart" class="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
-                    🛒 Cart (<?= $cartCount ?>)
-                </a>
+                <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
+                    <a href="cart" class="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+                        🛒 Cart (<?= $cartCount ?>)
+                    </a>
+                <?php endif; ?>
+
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -125,13 +128,21 @@ $conn->close();
                             </div>
 
                             <!-- Add to Cart Button -->
-                            <form action="add_to_cart" method="POST" class="mt-3">
-                                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                                <button type="submit" name="add_to_cart"
-                                    class="mt-2 w-full bg-black text-white py-1.5 text-sm rounded hover:bg-gray-800 transition">
-                                    Add to Cart 🛒
-                                </button>
-                            </form>
+                            <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
+                                <form action="add_to_cart" method="POST" class="mt-3">
+                                    <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                                    <button type="submit" name="add_to_cart"
+                                        class="mt-2 w-full bg-black text-white py-1.5 text-sm rounded hover:bg-gray-800 transition">
+                                        Add to Cart 🛒
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <div
+                                    class="mt-3 w-full bg-gray-300 text-gray-500 py-1.5 text-sm rounded text-center cursor-not-allowed">
+                                    Add to Cart Disabled
+                                </div>
+                            <?php endif; ?>
+
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -155,12 +166,21 @@ $conn->close();
                         <p id="modalCategory" class="text-sm text-gray-500 mb-4"></p>
                         <p id="modalPrice" class="text-xl font-semibold text-black mb-4"></p>
                         <p id="modalDescription" class="text-gray-700 mb-4"></p>
-                        <form action="add_to_cart" method="POST">
-                            <input type="hidden" id="modalProductId" name="product_id" value="">
-                            <button type="submit"
-                                class="mt-2 w-full bg-black text-white py-2 text-sm rounded hover:bg-gray-800 transition">Add
-                                to Cart 🛒</button>
-                        </form>
+                        <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
+                            <form action="add_to_cart" method="POST">
+                                <input type="hidden" id="modalProductId" name="product_id" value="">
+                                <button type="submit"
+                                    class="mt-2 w-full bg-black text-white py-2 text-sm rounded hover:bg-gray-800 transition">
+                                    Add to Cart 🛒
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <div
+                                class="mt-2 w-full bg-gray-300 text-gray-500 py-2 text-sm rounded text-center cursor-not-allowed">
+                                Add to Cart Disabled for Sellers
+                            </div>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

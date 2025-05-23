@@ -56,6 +56,25 @@ if (!empty($cart)) {
                     </div>
                 </div>
             <?php endforeach; ?>
+            <?php
+            $total = array_reduce($products, function ($carry, $item) {
+                return $carry + ($item['Price'] * $item['quantity']);
+            }, 0);
+            ?>
+
+            <div class="bg-white p-4 rounded shadow mt-6">
+                <div class="flex justify-between items-center text-xl font-semibold">
+                    <span>Total:</span>
+                    <span>$<?= number_format($total, 2) ?></span>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <a href="checkout"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-200">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+
         </div>
     <?php endif; ?>
 

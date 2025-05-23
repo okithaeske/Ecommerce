@@ -8,6 +8,12 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login");
     exit();
 }
+// If role is seller cannot add to cart and see cart and send a message pop up
+// Check if the user is a seller
+if ($_SESSION['role'] === 'seller') {
+    header("Location: products?message=You cannot add to cart&type=error");
+    exit();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];

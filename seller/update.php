@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
         $stmt = $conn->prepare("UPDATE product SET Name=?, Category_name=?, Price=?, Description=?, Image=? WHERE product_id=? AND Seller_ID=?");
         $null = NULL;
         $stmt->bind_param("ssdssbi", $name, $category, $price, $description, $null, $product_id, $seller_id);
-        $stmt->send_long_data(4, $imageData);
+        $stmt->send_long_data(5, $imageData);
     } else {
         // Keep old image
         $stmt = $conn->prepare("UPDATE product SET Name=?, Category_name=?, Price=?, Description=? WHERE product_id=? AND Seller_ID=?");

@@ -55,6 +55,12 @@ switch ($page) {
     case 'admin_dashboard':
         include 'admin/admin_dashboard.php';
         break;
+    case 'checkout':
+        include 'user/checkout.php';
+        break;
+    case 'thankyou':
+        include 'user/thankyou.php';
+        break;
     default:
         include 'view/home.php';
         break;

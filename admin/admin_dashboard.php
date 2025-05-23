@@ -2,10 +2,32 @@
 session_start();
 include 'config/db.php';
 
-// Delete logic
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user_id'])) {
     $deleteId = intval($_POST['delete_user_id']);
-    $conn->query("DELETE FROM user WHERE user_id = $deleteId");
+    $conn->begin_transaction();
+
+    try {
+        // Step 1: Get user role
+        $userResult = $conn->query("SELECT role FROM user WHERE user_id = $deleteId");
+        $user = $userResult->fetch_assoc();
+
+        if ($user['role'] === 'seller') {
+            // Step 2: Delete all products with Seller_ID = user_id
+            $conn->query("DELETE FROM product WHERE Seller_ID = $deleteId");
+
+            // Step 3: Delete from sellers
+            $conn->query("DELETE FROM sellers WHERE user_id = $deleteId");
+        }
+
+        // Step 4: Delete user
+        $conn->query("DELETE FROM user WHERE user_id = $deleteId");
+
+        $conn->commit();
+    } catch (Exception $e) {
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
+    }
 }
 
 // Delete product logic
@@ -13,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product_id']))
     $deleteProductId = intval($_POST['delete_product_id']);
     $conn->query("DELETE FROM product WHERE product_id = $deleteProductId");
 }
+
 
 
 // Total users
@@ -24,6 +47,21 @@ $userList = $conn->query("SELECT user_id, name, email, role FROM user");
 
 // Full product list
 $productList = $conn->query("SELECT product_id, seller_id, name, price, category_name, image, description, created_at FROM product");
+
+// Full order list
+$orderList = $conn->query("SELECT order_id, user_id, total,fullname, email, address, created_at FROM orders");
+
+$query = "SELECT COUNT(*) AS total_orders FROM orders";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$totalOrders = $row['total_orders'];
+
+$query = "SELECT SUM(total) AS total_amount FROM orders";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+
+$totalAmount = $row['total_amount'] ?? 0;
+$revenue = $totalAmount * 0.01;
 
 
 $conn->close();
@@ -55,9 +93,7 @@ $conn->close();
                 <a href="#" onclick="showSection('users')" class="block px-4 py-2 rounded hover:bg-gray-200">Users</a>
                 <a href="#" onclick="showSection('products')"
                     class="block px-4 py-2 rounded hover:bg-gray-200">Products</a>
-                <a href="#" class="block px-4 py-2 rounded hover:bg-gray-200">Orders</a>
-                <a href="#" class="block px-4 py-2 rounded hover:bg-gray-200">Reports</a>
-                <a href="#" class="block px-4 py-2 rounded hover:bg-gray-200">Settings</a>
+                <a href="#" onclick="showSection('orders')" class="block px-4 py-2 rounded hover:bg-gray-200">Orders</a>
             </nav>
         </aside>
 
@@ -86,12 +122,14 @@ $conn->close();
                     </div>
                     <div class="bg-white rounded-lg p-4 shadow-md">
                         <h3 class="text-gray-700">Total Orders</h3>
-                        <p class="text-2xl font-bold mt-2">860</p>
+                        <p class="text-2xl font-bold mt-2"><?php echo number_format($totalOrders); ?></p>
                     </div>
+
                     <div class="bg-white rounded-lg p-4 shadow-md">
                         <h3 class="text-gray-700">Revenue</h3>
-                        <p class="text-2xl font-bold mt-2">$12,450</p>
+                        <p class="text-2xl font-bold mt-2">$<?php echo number_format($revenue, 2); ?></p>
                     </div>
+
                 </div>
 
                 <!-- Users View (Initially Hidden) -->
@@ -177,11 +215,43 @@ $conn->close();
                         </tbody>
                     </table>
                 </div>
+                <!-- Orders View (Initially Hidden) -->
+                <div id="orders-view" class="hidden mt-6">
+                    <h1 class="text-2xl font-bold mb-4">All Orders</h1>
+                    <table class="min-w-full bg-white rounded-lg shadow">
+                        <thead>
+                            <tr class="bg-gray-200 text-left">
+                                <th class="py-2 px-4">Order ID</th>
+                                <th class="py-2 px-4">User ID</th>
+                                <th class="py-2 px-4">Total Amount</th>
+                                <th class="py-2 px-4">Full Name</th>
+                                <th class="py-2 px-4">Email</th>
+                                <th class="py-2 px-4">Address</th>
+                                <th class="py-2 px-4">Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $orderList->fetch_assoc()): ?>
+                                <tr class="border-t hover:bg-gray-50">
+                                    <td class="py-2 px-4"><?= $row['order_id'] ?></td>
+                                    <td class="py-2 px-4"><?= $row['user_id'] ?></td>
+                                    <td class="py-2 px-4">$<?= number_format($row['total'], 2) ?></td>
+                                    <td class="py-2 px-4"><?= htmlspecialchars($row['fullname']) ?></td>
+                                    <td class="py-2 px-4"><?= htmlspecialchars($row['email']) ?></td>
+                                    <td class="py-2 px-4"><?= htmlspecialchars($row['address']) ?></td>
+                                    <td class="py-2 px-4"><?= date('Y-m-d', strtotime($row['created_at'])) ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+
 
             </main>
 
         </div>
     </div>
+
 
 </body>
 
@@ -190,19 +260,21 @@ $conn->close();
         const dashboard = document.getElementById('dashboard-view');
         const users = document.getElementById('users-view');
         const products = document.getElementById('products-view');
+        const orders = document.getElementById('orders-view');
+
+        dashboard.classList.add('hidden');
+        users.classList.add('hidden');
+        products.classList.add('hidden');
+        orders.classList.add('hidden');
 
         if (section === 'dashboard') {
             dashboard.classList.remove('hidden');
-            users.classList.add('hidden');
-            products.classList.add('hidden');
         } else if (section === 'users') {
-            dashboard.classList.add('hidden');
             users.classList.remove('hidden');
-            products.classList.add('hidden');
         } else if (section === 'products') {
-            dashboard.classList.add('hidden');
-            users.classList.add('hidden');
             products.classList.remove('hidden');
+        } else if (section === 'orders') {
+            orders.classList.remove('hidden');
         }
     }
 </script>

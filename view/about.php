@@ -31,11 +31,44 @@
         </div>
     </div>
 
+    <section class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Text Block -->
+        <div class="md:col-span-1 flex flex-col justify-center">
+            <h4 class="uppercase text-sm text-gray-500 mb-2">Our Vision</h4>
+            <h1 class="text-3xl md:text-4xl font-extrabold leading-snug text-gray-900 mb-4">
+                Quality Timepieces <br />
+                Crafted with a Refined <br />
+                Attention to Detail
+            </h1>
+            <p class="text-gray-600 text-sm italic">
+                This is just the beginning for Xtime, so join with us on this journey and be a part of every step of the
+                way.<br />
+                <span class="text-black font-semibold">- @JoinXtheXtime</span>
+            </p>
+        </div>
+
+        <!-- Image Column 1 -->
+        <div class="grid grid-rows-2 gap-4">
+            <img src="assets/images/watch1.jpg" alt="Watch 1" class="rounded-lg object-cover w-full h-full" />
+            <img src="assets/images/watch2.jpg" alt="Watch 2" class="rounded-lg object-cover w-full h-full" />
+        </div>
+
+        <!-- Image Column 2 -->
+        <div class="grid grid-rows-3 gap-4">
+            <img src="assets/images/watch3.jpg" alt="Watch 3" class="rounded-lg object-cover w-full h-full" />
+            <img src="assets/images/watch4.jpg" alt="Watch 4" class="rounded-lg object-cover w-full h-full" />
+            <img src="assets/images/watch5.jpg" alt="Watch 5" class="rounded-lg object-cover w-full h-full" />
+        </div>
+    </section>
+
+   
+
     <!-- Craftsmanship Section -->
     <div class="relative bg-gray-900 py-20 px-6 md:px-16">
         <div class="container mx-auto flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 fade-in">
-                <h1 class="text-4xl font-bold text-gold">The Art of Watchmaking</h1>
+                <h1 class="text-4xl text-amber-50 font-bold text-gold">The Art of Watchmaking</h1>
                 <p class="text-gray-300 mt-4">Our master watchmakers blend the finest materials—diamond-cut sapphire
                     glass, aerospace-grade titanium, and Swiss automatic movements—to craft timeless pieces that
                     transcend generations.</p>
@@ -47,27 +80,7 @@
         </div>
     </div>
 
-    <!--  Lifestyle & Prestige Section -->
-    <div class="parallax h-screen flex items-center justify-center text-center px-6"
-        style="background-image: url('assets/images/lifestyle-bg.jpg');">
-        <div class="fade-in">
-            <h1 class="text-5xl font-bold text-gold">A Statement of Prestige</h1>
-            <p class="text-gray-300 mt-4 text-lg">Worn by leaders, visionaries, and those who demand the extraordinary.
-            </p>
-        </div>
-    </div>
 
-    <!-- Future & Innovation Section -->
-    <div class="bg-gray-800 py-20 px-6 md:px-16">
-        <div class="container mx-auto text-center fade-in">
-            <h1 class="text-4xl font-bold text-gold">The Future of Luxury</h1>
-            <p class="text-gray-300 mt-4 text-lg">Sustainably crafted, technologically advanced, and artistically
-                inspired. The next chapter begins soon…</p>
-            <button
-                class="mt-6 bg-gold text-black px-6 py-3 font-bold rounded-full shadow-lg hover:bg-yellow-500 transition">Explore
-                More</button>
-        </div>
-    </div>
 
 
     <!-- Scroll indicator -->
