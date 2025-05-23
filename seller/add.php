@@ -10,8 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Check if the user is a seller
 if ($_SESSION['role'] == 'user') {
-    header("Location: home");
-    exit();
+    header("Location: home");    exit();
 }
 
 $host = "localhost";

@@ -1,70 +1,10 @@
-<?php
-session_start();
-include 'config/db.php';
-
-$cart = $_SESSION['cart'] ?? [];
-
-if (empty($cart)) {
-    header('Location: cart.php');
-    exit;
-}
-
-$products = [];
-$total = 0;
-
-$ids = implode(",", array_map('intval', array_keys($cart)));
-$result = $conn->query("SELECT product_id, Name, Price FROM product WHERE product_id IN ($ids)");
-while ($row = $result->fetch_assoc()) {
-    $row['quantity'] = $cart[$row['product_id']];
-    $row['subtotal'] = $row['Price'] * $row['quantity'];
-    $total += $row['subtotal'];
-    $products[] = $row;
-}
-
-$user_id = $_SESSION['user_id'] ?? null;
-if (!$user_id) {
-    header("Location: login.php");
-    exit;
-}
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullname = $conn->real_escape_string($_POST['fullname']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $address = $conn->real_escape_string($_POST['address']);
-
-    // Insert into orders table
-    $stmt = $conn->prepare("INSERT INTO orders (user_id, fullname, email, address, total) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssd", $user_id, $fullname, $email, $address, $total);
-    $stmt->execute();
-    $order_id = $stmt->insert_id;
-    $stmt->close();
-
-    // Insert each item into order_items
-    $stmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-    foreach ($products as $item) {
-        $pid = $item['product_id'];
-        $qty = $item['quantity'];
-        $price = $item['Price'];
-        $stmt->bind_param("iiid", $order_id, $pid, $qty, $price);
-        $stmt->execute();
-    }
-    $stmt->close();
-
-    // Clear cart and redirect
-    $_SESSION['cart'] = [];
-    header("Location: thankyou");
-    exit;
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Checkout</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="bg-gray-100 p-6">
@@ -109,7 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
             Place Order
         </button>
+
     </form>
+
+    <div class="text-center mt-4">
+        <a href="cart" class="text-blue-600 text-lg font-semibold hover:underline">← Back to Cart</a>
+    </div>
 
 </body>
 

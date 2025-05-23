@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +30,7 @@
 
             <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Update
                 Product</button>
-            <a href="dashboard" class="text-blue-500 underline mt-2">← Back to Dashboard</a>
+            <a href="seller\dashboard.php" class="text-blue-500 underline mt-2">← Back to Dashboard</a>
         </form>
     </div>
 </body>

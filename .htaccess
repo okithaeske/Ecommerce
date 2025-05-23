@@ -22,6 +22,11 @@ RewriteRule ^logout$ index.php?page=logout [L]
 RewriteRule ^admin_dashboard$ index.php?page=admin_dashboard [L]
 RewriteRule ^checkout$ index.php?page=checkout [L]
 RewriteRule ^thankyou$ index.php?page=thankyou [L]
+RewriteRule ^add_to_cart$ index.php?page=add_to_cart [L]
+RewriteRule ^admin_delete$ index.php?page=admin_delete [L]
+
+
+
 
 
 

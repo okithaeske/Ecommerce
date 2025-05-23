@@ -1,72 +1,58 @@
 <?php
-$base = './'; // update if hosted inside a folder
+require_once 'controllers/AuthControllers.php';
+require_once 'controllers/ProductController.php';
+require_once 'controllers/SellerController.php';
+require_once 'controllers/CartController.php';
+require_once 'controllers/UserController.php';
+require_once 'controllers/AdminController.php';
 
 $page = $_GET['page'] ?? 'home';
 $category = $_GET['category'] ?? null;
 
-
-// Routing logic
 switch ($page) {
-    case 'products':
-        include 'view/product.php';
-        break;
-    case 'add':
-        include 'seller/add.php';
-        break;
-    case 'update':
-        include 'seller/update.php';
-        break;
-    case 'dashboard':
-        include 'seller/dashboard.php';
-        break;
-    case 'contact':
-        include 'view/contact.php';
-        break;
-    case 'about':
-        include 'view/about.php';
-        break;
     case 'login':
-        include 'auth/login.php';
-        break;
-    case 'roleselection':
-        include 'auth/roleselection.php';
+        (new AuthController())->login();
         break;
     case 'register':
-        include 'auth/register.php';
-        break;
-    case 'store_register':
-        include 'auth/store_register.php';
-        break;
-    case 'update_product':
-        include 'seller/update_product.php';
-        break;
-    case 'cart':
-        include 'user/cart.php';
-        break;
-    case 'add_to_cart':
-        include 'user/add_to_cart.php';
-        break;
-    case 'update_cart':
-        include 'user/update_cart.php';
+        (new AuthController())->register();
         break;
     case 'logout':
-        include 'auth/logout.php';
+        (new AuthController())->logout();
         break;
-    case 'admin_dashboard':
-        include 'admin/admin_dashboard.php';
+    case 'products':
+        (new ProductController())->show();
+        break;
+    case 'add':
+        (new SellerController())->add();
+        break;
+    case 'delete':
+        (new SellerController())->delete();
+        break;
+    case 'update':
+        (new SellerController())->update();
+        break;
+    case 'dashboard':
+        (new SellerController())->dashboard();
         break;
     case 'checkout':
-        include 'user/checkout.php';
+        (new UserController())->checkout();
+        break;
+    case 'admin_dashboard':
+        (new AdminController())->dashboard();
+        break;
+    
+
+   
+    case 'add_to_cart':
+        include 'user/add_to_cart.php'; 
         break;
     case 'thankyou':
         include 'user/thankyou.php';
         break;
+    case 'about':
+    case 'contact':
+    case 'home':
     default:
-        include 'view/home.php';
+        include 'view/' . $page . '.php'; // fallback for simple views
         break;
-
-
-        
 }
-
-
