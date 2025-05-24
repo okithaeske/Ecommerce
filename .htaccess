@@ -23,10 +23,11 @@ RewriteRule ^admin_dashboard$ index.php?page=admin_dashboard [L]
 RewriteRule ^checkout$ index.php?page=checkout [L]
 RewriteRule ^thankyou$ index.php?page=thankyou [L]
 RewriteRule ^add_to_cart$ index.php?page=add_to_cart [L]
-RewriteRule ^admin_delete$ index.php?page=admin_delete [L]
+RewriteRule ^admindelete$ index.php?page=admindelete [L]
 RewriteRule ^registerUser$ index.php?page=registerUser [L]
 RewriteRule ^storeRegister$ index.php?page=storeRegister [L]
 RewriteRule ^delete$ index.php?page=delete [L]
+
 
 
 

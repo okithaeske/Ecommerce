@@ -29,15 +29,16 @@ class AdminController
         include 'admin\admin_dashboard.php';
     }
     
-     public function delete($userId, $currentUserRole)
-    {
-        // Only allow non-admins to be deleted
-        if (strtolower($currentUserRole) !== 'admin') {
-            $userModel = new User();
-            $userModel->deleteUser($userId);
-            return true;
-        } else {
-            throw new Exception("Admin users cannot be deleted.");
-        }
+  public function deleteUser()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+        $userId = $_POST['delete_id'];
+        $userModel = new User();
+        $userModel->deleteUser($userId);
+
+        // Redirect back to the dashboard after deletion
+        header('Location: admin_dashboard');
+        exit();
     }
+}
 }

@@ -40,6 +40,9 @@ switch ($page) {
     case 'admin_dashboard':
         (new AdminController())->dashboard();
         break;
+    case 'admindelete':
+        (new AdminController())->deleteuser();
+        break;
     case 'storeRegister':
         (new AuthController())->RegisterStore();
         break;

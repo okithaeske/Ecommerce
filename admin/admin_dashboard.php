@@ -81,7 +81,7 @@
                                         <?php if (strtolower($user['Role']) === 'admin'): ?>
                                             <span class="text-gray-500 italic">admin</span>
                                         <?php else: ?>
-                                            <form action="admin_delete" method="post" class="inline">
+                                            <form action="admindelete" method="post" class="inline">
                                                 <input type="hidden" name="delete_id" value="<?php echo $user['user_ID']; ?>">
                                                 <button type="submit" class="text-red-500 hover:text-red-700">
                                                     <i class="fas fa-trash"></i>

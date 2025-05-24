@@ -11,7 +11,7 @@ class User
         $this->conn = $db->connect();
     }
 
-     public function emailExists($email)
+    public function emailExists($email)
     {
         $stmt = $this->conn->prepare("SELECT user_id FROM user WHERE email = ?");
         $stmt->execute([$email]);
@@ -48,36 +48,54 @@ class User
         return $this->conn->query("SELECT * FROM user");
     }
 
-    // Delete user and related products
     public function deleteUser($deleteId)
     {
         $this->conn->beginTransaction();
 
         try {
             // Get user role
-            $userResult = $this->conn->query("SELECT role FROM user WHERE user_id = $deleteId");
-            $user = $userResult->fetch(PDO::FETCH_ASSOC);
+            $stmt = $this->conn->prepare("SELECT role FROM user WHERE user_id = ?");
+            $stmt->execute([$deleteId]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user['role'] === 'seller') {
-                // Delete all products of the seller
-                $this->conn->query("DELETE FROM product WHERE Seller_ID = $deleteId");
-                $this->conn->query("DELETE FROM sellers WHERE user_id = $deleteId");
+            if (!$user) {
+                throw new Exception("User not found");
             }
 
-            // Delete the user
-            $this->conn->query("DELETE FROM user WHERE user_id = $deleteId");
+            if ($user['role'] === 'seller') {
+                // Delete products by seller
+                $stmt = $this->conn->prepare("DELETE FROM product WHERE Seller_ID = ?");
+                $stmt->execute([$deleteId]);
+
+                // Delete from sellers table
+                $stmt = $this->conn->prepare("DELETE FROM sellers WHERE user_id = ?");
+                $stmt->execute([$deleteId]);
+            }
+
+            // Delete order_items first
+            $stmt = $this->conn->prepare("DELETE FROM order_items WHERE order_id IN (SELECT order_id FROM orders WHERE user_id = ?)");
+            $stmt->execute([$deleteId]);
+
+            // Delete orders
+            $stmt = $this->conn->prepare("DELETE FROM orders WHERE user_id = ?");
+            $stmt->execute([$deleteId]);
+
+            // Finally, delete the user
+            $stmt = $this->conn->prepare("DELETE FROM user WHERE user_id = ?");
+            $stmt->execute([$deleteId]);
 
             $this->conn->commit();
         } catch (Exception $e) {
             $this->conn->rollback();
             throw $e;
         }
-
-
     }
 
 
-       public function isDuplicate($store_name, $phone_number)
+
+
+
+    public function isDuplicate($store_name, $phone_number)
     {
         $stmt = $this->conn->prepare("SELECT * FROM sellers WHERE store_name = ? AND phone_number = ?");
         $stmt->execute([$store_name, $phone_number]);
