@@ -1,88 +1,9 @@
-<?php
-
-$role = isset($_GET['role']) ? $_GET['role'] : 'user'; // Defaults to 'user' if not provided
-$roleTitle = ucfirst($role); // Makes it "User" or "Seller"
-?>
-
-<?php
-// DB connection
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "luxury_ecommerce"; // Change this to your actual DB name
-
-$conn = new mysqli($host, $user, $pass, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle POST request from register form
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-    $confirm = $_POST['confirm_password'];
-    $role = $_POST['role'];
-
-    // Password match check
-    if ($password !== $confirm) {
-        header("Location: register?role=$role&message=Passwords do not match&type=error");
-        exit;
-    }
-
-    // Check if email already exists
-    $stmt = $conn->prepare("SELECT user_id FROM user WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        header("Location: register");
-        exit;
-    }
-    $stmt->close();
-
-    // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-    // Insert user
-    $insert = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
-    $insert->bind_param("ssss", $name, $email, $hashedPassword, $role);
-
-    if ($insert->execute()) {
-        $newUserId = $insert->insert_id; // Get the auto-generated user_id
-
-        if ($role === 'seller') {
-            session_start(); // Ensure this is at the top of your script
-            // After successful registration and insertion into the database
-            $_SESSION['user_id'] = $newUserId; // Replace with your actual user ID variable
-
-            // Redirect to store_register with user_id
-            header("Location: store_register?user_id=$newUserId&message=Registration successful&type=success");
-            exit;
-        } elseif ($role === 'user') {
-            // Regular user, redirect to login
-            header("Location: login?message=Registration successful&type=success");
-            exit;
-        }
-    } else {
-        header("Location: register?role=$role&message=Error registering user&type=error");
-    }
-
-    $insert->close();
-
-}
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Register as <?= $roleTitle ?></title>
+    <title>Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -94,7 +15,16 @@ $conn->close();
 
     <div class="bg-gray-800 rounded-2xl shadow-xl p-10 w-full max-w-lg">
         <h2 class="text-3xl font-bold text-center mb-6">Register</h2>
-        <form action="register" method="POST" class="space-y-5">
+
+        <?php if (!empty($message)): ?>
+            <div class="mb-4 p-3 rounded-lg bg-red-500 text-white text-center font-semibold">
+                <?= htmlspecialchars($message); ?>
+            </div>
+        <?php endif; ?>
+
+
+
+        <form action="registerUser" method="POST" class="space-y-5">
 
             <div>
                 <label for="name" class="block mb-1">User Name</label>

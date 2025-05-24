@@ -18,9 +18,9 @@ class CartController
         $products = [];
 
         if (!empty($cart)) {
-            $ids = implode(",", array_map('intval', array_keys($cart)));
+            $ids = array_map('intval', array_keys($cart));
             $result = $productModel->getProductsByIds($ids);
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            foreach ($result as $row) {
                 $row['quantity'] = $cart[$row['product_id']];
                 $products[] = $row;
             }

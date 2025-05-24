@@ -13,8 +13,8 @@ switch ($page) {
     case 'login':
         (new AuthController())->login();
         break;
-    case 'register':
-        (new AuthController())->register();
+    case 'registerUser':
+        (new AuthController())->RegisterN();
         break;
     case 'logout':
         (new AuthController())->logout();
@@ -40,6 +40,9 @@ switch ($page) {
     case 'admin_dashboard':
         (new AdminController())->dashboard();
         break;
+    case 'storeRegister':
+        (new AuthController())->RegisterStore();
+        break;
     
 
    
@@ -49,6 +52,12 @@ switch ($page) {
     case 'thankyou':
         include 'user/thankyou.php';
         break;
+    case 'register':
+        include 'auth/register.php';
+        break;
+    case 'store_register':
+        include 'auth/store_register.php';
+        break;  
     case 'about':
     case 'contact':
     case 'home':

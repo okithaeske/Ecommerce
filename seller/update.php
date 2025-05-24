@@ -11,6 +11,8 @@
     <div class="max-w-2xl mx-auto p-6">
         <h1 class="text-2xl font-bold mb-6">Edit Product</h1>
         <form method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md grid gap-4">
+            <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['Product_ID']) ?>">
+
             <input type="text" name="name" value="<?= htmlspecialchars($product['Name']) ?>" required
                 class="p-2 border rounded" placeholder="Product Name">
             <input type="text" name="category" value="<?= htmlspecialchars($product['Category_name']) ?>" required
@@ -30,6 +32,7 @@
                 Product</button>
             <a href="dashboard" class="text-blue-500 underline mt-2">← Back to Dashboard</a>
         </form>
+
     </div>
 </body>
 

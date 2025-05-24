@@ -11,6 +11,20 @@ class User
         $this->conn = $db->connect();
     }
 
+     public function emailExists($email)
+    {
+        $stmt = $this->conn->prepare("SELECT user_id FROM user WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public function register($name, $email, $hashedPassword, $role)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
+        $success = $stmt->execute([$name, $email, $hashedPassword, $role]);
+        return $success ? $this->conn->lastInsertId() : false;
+    }
+
     public function findByEmail($email)
     {
         $sql = "SELECT user_id, name, role, password FROM user WHERE email = :email";
@@ -18,19 +32,6 @@ class User
         $stmt->bindParam(":email", $email);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Register a new user
-    public function register($name, $email, $password, $role)
-    {
-        $sql = "INSERT INTO user (name, email, password, role) VALUES (:name, :email, :password, :role)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":password", $password);
-        $stmt->bindParam(":role", $role);
-
-        return $stmt->execute();
     }
 
     // Get total number of users
@@ -73,6 +74,20 @@ class User
         }
 
 
+    }
+
+
+       public function isDuplicate($store_name, $phone_number)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM sellers WHERE store_name = ? AND phone_number = ?");
+        $stmt->execute([$store_name, $phone_number]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public function registerstore($store_name, $logo_content, $phone_number, $user_id)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO sellers (store_name, store_logo, phone_number, user_id) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$store_name, $logo_content, $phone_number, $user_id]);
     }
 
 

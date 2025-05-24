@@ -1,78 +1,3 @@
-<?php
-session_start(); // Ensure this is at the top of your script
-
-if (isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    // echo "User ID: " . htmlspecialchars($userId); // Display the user ID for debugging
-    // You can also use it in your SQL queries or other logic
-    // Proceed with using $userId as needed
-} else {
-    // Handle the case where user_id is not set in the session
-    echo "Invalid access. User ID not found.";
-    exit;
-}
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "luxury_ecommerce";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$message = "";
-$success = false;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $store_name = trim($_POST['store_name']);
-    $phone_number = trim($_POST['phone_number']);
-    $logo = $_FILES['store_logo']['tmp_name'];
-    $logo_type = mime_content_type($logo);
-
-    // Validate image
-    if (!file_exists($logo) || !$logo_type || strpos($logo_type, 'image/') !== 0) {
-        $message = "Please upload a valid image file for the store logo.";
-    } else {
-        // Check for duplicate store name or phone number
-        $checkStmt = $conn->prepare("SELECT * FROM sellers WHERE store_name = ? AND phone_number = ?");
-        $checkStmt->bind_param("ss", $store_name, $phone_number);
-        $checkStmt->execute();
-        $result = $checkStmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $message = "Store name or phone number already exists.";
-        } else {
-            // All validations passed – proceed
-            $logo_content = file_get_contents($logo);
-            // Insert the store with the associated user_id
-            $stmt = $conn->prepare("INSERT INTO sellers (store_name, store_logo, phone_number, user_id) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sssi", $store_name, $logo_content, $phone_number, $userId);
-
-            if ($stmt->execute()) {
-                $message = "Store registered successfully! Redirecting to login...";
-                $success = true;
-                header("location: login?message=Registration successful&type=success");
-                exit;
-            } else {
-                $message = "Database error: " . $stmt->error;
-            }
-
-            $stmt->close();
-        }
-
-        $checkStmt->close();
-    }
-}
-$conn->close();
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,11 +15,11 @@ $conn->close();
         <!-- Error Message -->
         <?php if (!empty($message)): ?>
             <div class="mb-4 text-red-600 bg-red-100 border border-red-300 px-4 py-2 rounded">
-                <i class="fas fa-exclamation-circle mr-2"></i><?= htmlspecialchars($message) ?>
+                <?= htmlspecialchars($message) ?>
             </div>
-        <?php endif; ?> 
+        <?php endif; ?>
 
-        <form action="store_register" method="POST" enctype="multipart/form-data">
+        <form action="storeRegister" method="POST" enctype="multipart/form-data">
             <div class="mb-4">
                 <label for="store_name" class="block text-gray-600 font-medium">Store Name:</label>
                 <input type="text" id="store_name" name="store_name" required

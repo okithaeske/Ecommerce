@@ -36,6 +36,7 @@
             </form>
         </div>
 
+
         <!-- Product Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php foreach ($products as $product): ?>
@@ -49,14 +50,13 @@
                         <p class="text-lg font-semibold text-green-600 mb-2">$<?= number_format($product['Price'], 2) ?></p>
                         <p class="text-sm text-gray-700 mb-4"><?= htmlspecialchars($product['Description']) ?></p>
                         <div class="flex justify-between items-center">
-                            <form action="update" method="post" class="inline">
-                                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                                <button type="submit" class="text-blue-600 hover:underline font-medium">Edit</button>
+                            <form method="POST" action="update">
+                                <input type="hidden" name="product_id" value="<?= $product['Product_ID'] ?>">
+                                <button type="submit">Edit</button>
                             </form>
-                            <form method="post" onsubmit="return confirm('Are you sure you want to delete this product?')"
-                                class="inline">
-                                <input type="hidden" name="delete_product_id" value="<?= $product['product_id'] ?>">
-                                <button type="submit" class="text-red-600 hover:underline font-medium">Delete</button>
+                            <form method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                <input type="hidden" name="product_id" value="<?= $product['Product_ID'] ?>">
+                                <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Delete</button>
                             </form>
                         </div>
                     </div>
