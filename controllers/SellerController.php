@@ -44,7 +44,7 @@ class SellerController
 
             $this->productModel->addProduct($sellerId, $name, $category, $price, $description, $imageData);
 
-            header("Location: seller\dashboard.php");
+            header("Location: dashboard");
             exit;
         }
 
@@ -59,7 +59,7 @@ class SellerController
             $this->productModel->deleteProduct($productId);
         }
 
-        header("Location: seller\dashboard.php");
+        header("Location: dashboard");
         exit;
     }
 

@@ -20,7 +20,7 @@
         <!-- Add Product Form -->
         <div class="bg-white shadow-lg rounded-xl p-8 mb-10 border border-gray-200">
             <h2 class="text-2xl font-semibold mb-4">Add New Product</h2>
-            <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="add" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="text" name="name" placeholder="Product Name" required
                     class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <input type="text" name="category" placeholder="Category" required
@@ -54,7 +54,7 @@
                                 <input type="hidden" name="product_id" value="<?= $product['Product_ID'] ?>">
                                 <button type="submit">Edit</button>
                             </form>
-                            <form method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                            <form action="delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                 <input type="hidden" name="product_id" value="<?= $product['Product_ID'] ?>">
                                 <button type="submit" class="text-red-600 hover:text-red-800 font-semibold">Delete</button>
                             </form>

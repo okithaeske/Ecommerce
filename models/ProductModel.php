@@ -31,21 +31,29 @@ class ProductModel
     // Add new product
     public function addProduct($sellerId, $name, $category, $price, $description, $imageData = null)
     {
-        $sql = "INSERT INTO product (Seller_ID, Name, Category_name, Price, Description, Image) 
+        try {
+            $sql = "INSERT INTO product (Seller_ID, Name, Category_name, Price, Description, Image) 
                 VALUES (:sellerId, :name, :category, :price, :description, :image)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':sellerId', $sellerId);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':category', $category);
-        $stmt->bindParam(':price', $price);
-        $stmt->bindParam(':description', $description);
-        if ($imageData) {
-            $stmt->bindParam(':image', $imageData, PDO::PARAM_LOB);
-        } else {
-            $stmt->bindValue(':image', null, PDO::PARAM_NULL);
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':sellerId', $sellerId);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':category', $category);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':description', $description);
+
+            if ($imageData) {
+                $stmt->bindParam(':image', $imageData, PDO::PARAM_LOB);
+            } else {
+                $stmt->bindValue(':image', null, PDO::PARAM_NULL);
+            }
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Log the error or handle as necessary
+            return false;
         }
-        return $stmt->execute();
     }
+
 
     public function updateProduct($productId, $sellerId, $name, $category, $price, $description, $imageData)
     {

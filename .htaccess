@@ -27,7 +27,7 @@ RewriteRule ^admin_delete$ index.php?page=admin_delete [L]
 RewriteRule ^registerUser$ index.php?page=registerUser [L]
 RewriteRule ^storeRegister$ index.php?page=storeRegister [L]
 RewriteRule ^delete$ index.php?page=delete [L]
-RewriteRule ^updateProduct$ index.php?page=updateProduct [L]
+
 
 
 
