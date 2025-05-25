@@ -76,7 +76,7 @@
             <?php
             $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             ?>
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-6 px-4">
                 <h2 class="text-2xl font-bold border-b pb-2 text-gray-900">OUR PRODUCTS</h2>
                 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
                     <a href="cart" class="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
