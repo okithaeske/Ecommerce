@@ -74,7 +74,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <button id="close-menu" class="absolute top-4 right-4 text-white text-2xl">&times;</button>
 
-            <div class="flex flex-col items-center mt-16 space-y-6 h-screen bg-gray-900 bg-opacity-60 p-8">
+            <div class="flex flex-col items-center mt-16 space-y-5 h-screen bg-gray-900 bg-opacity-60 p-8">
 
                 <a href="home" class="hover:text-gray-400 text-xl text-center w-full">Home</a>
                 <a href="about" class="hover:text-gray-400 text-xl text-center w-full">About</a>

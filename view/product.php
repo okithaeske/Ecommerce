@@ -7,7 +7,7 @@
     <title>Luxury Watches</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
- 
+
 </head>
 
 <body class="bg-black text-gray-800">
@@ -72,7 +72,7 @@
         </section>
 
 
-        <section class="w-screen mb-7 mx-auto px-4 py-12 bg-[#F9FAFB]">
+        <section class="w-screen mx-auto px-4 py-12 bg-[#F9FAFB]">
             <?php
             $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             ?>
@@ -137,59 +137,60 @@
                 <?php endforeach; ?>
             </div>
         </section>
+    </section>
+    <!-- Footer -->
 
-        <?php include 'components/footer.php'; ?>
+    <?php include 'components/footer.php'; ?>
 
-        <!-- Product Modal -->
-        <div id="productModal"
-            class="fixed inset-0 z-50 hidden bg-black bg-opacity-60 flex items-center justify-center">
-            <div class="bg-white w-11/12 md:w-3/4 h-3/4 rounded-lg shadow-lg overflow-y-auto relative">
-                <button onclick="closeModal()"
-                    class="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded hover:bg-gray-800">✖</button>
-                <div class="grid md:grid-cols-2 gap-4 p-6">
-                    <div class="flex justify-center items-center">
-                        <img id="modalImage" src="" alt="Product" class="max-h-[400px] object-contain rounded">
-                    </div>
-                    <div>
-                        <h2 id="modalName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
-                        <p id="modalCategory" class="text-sm text-gray-500 mb-4"></p>
-                        <p id="modalPrice" class="text-xl font-semibold text-black mb-4"></p>
-                        <p id="modalDescription" class="text-gray-700 mb-4"></p>
-                        <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
-                            <form action="add_to_cart" method="POST">
-                                <input type="hidden" id="modalProductId" name="product_id" value="">
-                                <button type="submit"
-                                    class="mt-2 w-full bg-black text-white py-2 text-sm rounded hover:bg-gray-800 transition">
-                                    Add to Cart 🛒
-                                </button>
-                            </form>
-                        <?php else: ?>
-                            <div
-                                class="mt-2 w-full bg-gray-300 text-gray-500 py-2 text-sm rounded text-center cursor-not-allowed">
-                                Add to Cart Disabled for Sellers
-                            </div>
-                        <?php endif; ?>
+    <!-- Product Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-60 flex items-center justify-center">
+        <div class="bg-white w-11/12 md:w-3/4 h-3/4 rounded-lg shadow-lg overflow-y-auto relative">
+            <button onclick="closeModal()"
+                class="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded hover:bg-gray-800">✖</button>
+            <div class="grid md:grid-cols-2 gap-4 p-6">
+                <div class="flex justify-center items-center">
+                    <img id="modalImage" src="" alt="Product" class="max-h-[400px] object-contain rounded">
+                </div>
+                <div>
+                    <h2 id="modalName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+                    <p id="modalCategory" class="text-sm text-gray-500 mb-4"></p>
+                    <p id="modalPrice" class="text-xl font-semibold text-black mb-4"></p>
+                    <p id="modalDescription" class="text-gray-700 mb-4"></p>
+                    <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'seller'): ?>
+                        <form action="add_to_cart" method="POST">
+                            <input type="hidden" id="modalProductId" name="product_id" value="">
+                            <button type="submit"
+                                class="mt-2 w-full bg-black text-white py-2 text-sm rounded hover:bg-gray-800 transition">
+                                Add to Cart 🛒
+                            </button>
+                        </form>
+                    <?php else: ?>
+                        <div
+                            class="mt-2 w-full bg-gray-300 text-gray-500 py-2 text-sm rounded text-center cursor-not-allowed">
+                            Add to Cart Disabled for Sellers
+                        </div>
+                    <?php endif; ?>
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            function openModal(productId, name, category, price, description, imageBase64) {
-                document.getElementById('modalProductId').value = productId;
-                document.getElementById('modalName').innerText = name;
-                document.getElementById('modalCategory').innerText = category;
-                document.getElementById('modalPrice').innerText = `$${parseFloat(price).toFixed(2)}`;
-                document.getElementById('modalDescription').innerText = description;
-                document.getElementById('modalImage').src = 'data:image/jpeg;base64,' + imageBase64;
-                document.getElementById('productModal').classList.remove('hidden');
-            }
+    <script>
+        function openModal(productId, name, category, price, description, imageBase64) {
+            document.getElementById('modalProductId').value = productId;
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalCategory').innerText = category;
+            document.getElementById('modalPrice').innerText = `$${parseFloat(price).toFixed(2)}`;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('modalImage').src = 'data:image/jpeg;base64,' + imageBase64;
+            document.getElementById('productModal').classList.remove('hidden');
+        }
 
-            function closeModal() {
-                document.getElementById('productModal').classList.add('hidden');
-            }
-        </script>
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+    </script>
 
 
 

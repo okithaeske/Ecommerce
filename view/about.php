@@ -88,7 +88,6 @@
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="1"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="2"></div>
         <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="3"></div>
-        <div class="dot w-3 h-3 rounded-full bg-gray-400 transition-all" data-section="4"></div>
     </div>
 
     <?php include 'components/scrollscript.php'; ?>

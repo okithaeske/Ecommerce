@@ -46,6 +46,8 @@ class AuthController
 
             if ($password !== $confirm) {
                 $message = "Passwords do not match.";
+            } elseif (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/\d/', $password)) {
+                $message = "Password must be at least 8 characters long and contain both letters and numbers.";
             } elseif ($userModel->emailExists($email)) {
                 $message = "Email already exists.";
             } else {
